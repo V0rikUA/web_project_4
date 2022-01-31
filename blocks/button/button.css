@@ -2,4 +2,7 @@
   background-color: transparent;
   border: none;
   border-radius: 0px;
+  all: unset;
+  cursor: pointer;
+  transition: opacity 0.4s;
 }

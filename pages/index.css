@@ -30,6 +30,7 @@
 @import url(../blocks/gallery-list/__description/gallery-list__description.css);
 @import url(../blocks/gallery-list/__description-block/gallery-list__description.css);
 @import url(../blocks/gallery-list/__image-description/gallery-list__image-description.css);
+@import url(../blocks/gallery-list/__like-button/gallery-list__like-button.css);
 
 /*                FOOTER BLOCK                      */
 @import url(../blocks/footer/__copyright/footer__copyright.css);
