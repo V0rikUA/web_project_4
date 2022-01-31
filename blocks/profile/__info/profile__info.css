@@ -1,4 +1,5 @@
 .profile__info {
-  margin-top: 22px;
-  margin-bottom: 21px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
