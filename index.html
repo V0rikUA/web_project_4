@@ -8,6 +8,47 @@
     <title>Document</title>
   </head>
   <body class="root">
+    <div class="popup popup_type_profile">
+      <div class="popup__window">
+        <button
+          type="button"
+          class="popup__close-button popup__close-button_place_profile"
+          aria-label="close"
+        ></button>
+        <h2 class="popup__title">Edit profile</h2>
+        <form class="form form_type_profile" name="profileEditForm" novalidate>
+          <input
+            value=" "
+            id="name-input"
+            type="text"
+            class="form__input form__input_type_name"
+            name="profileFormNameInput"
+            required
+            minlength="2"
+            maxlength="40"
+          />
+          <span id="name-input-error" class="form__input-error"></span>
+          <input
+            value=" "
+            id="title-input"
+            type="text"
+            class="form__input form__input_type_title"
+            name="profileFormTitleInput"
+            required
+            minlength="2"
+            maxlength="200"
+          />
+          <span id="title-input-error" class="form__input-error"></span>
+          <button
+            type="submit"
+            class="button form__submit-button form__submit-button_place_profile"
+          >
+            Save
+          </button>
+        </form>
+      </div>
+    </div>
+
     <header class="header">
       <img
         src="./images/logo.svg"
@@ -152,5 +193,6 @@
     <footer class="footer">
       <p class="footer__copyright">© 2021 Around The U.S.</p>
     </footer>
+    <script type="module" src="./scripts/index.js"></script>
   </body>
 </html>
