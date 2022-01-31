@@ -10,6 +10,7 @@
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/gallery/gallery.css);
 @import url(../blocks/gallery-list/gallery-list.css);
+@import url(../blocks/footer/footer.css);
 
 /*                HEADER BLOCK                    */
 @import url(../blocks/header/__logo/header__logo.css);
@@ -29,3 +30,6 @@
 @import url(../blocks/gallery-list/__description/gallery-list__description.css);
 @import url(../blocks/gallery-list/__description-block/gallery-list__description.css);
 @import url(../blocks/gallery-list/__image-description/gallery-list__image-description.css);
+
+/*                FOOTER BLOCK                      */
+@import url(../blocks/footer/__copyright/footer__copyright.css);
