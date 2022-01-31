@@ -9,3 +9,10 @@
   justify-content: center;
   align-items: center;
 }
+
+@media screen and (max-width: 620px) {
+  .profile__button-add-contetnt {
+    width: 100%;
+    margin: 0;
+  }
+}
