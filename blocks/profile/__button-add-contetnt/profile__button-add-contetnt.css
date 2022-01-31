@@ -10,6 +10,10 @@
   align-items: center;
 }
 
+.profile__button-add-contetnt:hover {
+  opacity: 0.6;
+}
+
 @media screen and (max-width: 620px) {
   .profile__button-add-contetnt {
     width: 100%;
