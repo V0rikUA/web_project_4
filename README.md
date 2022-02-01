@@ -9,6 +9,7 @@ This is a project built to practice vanilla HTML, CSS and JavaScript web page bu
 - HTML5
 - CSS3
 - FIGMA
+- JS
 
 ### Made by
 
