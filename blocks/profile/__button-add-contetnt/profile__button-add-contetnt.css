@@ -1,0 +1,22 @@
+.profile__button-add-contetnt {
+  padding: 0;
+  width: 150px;
+  height: 50px;
+  margin: auto 0 auto auto;
+  border: 2px solid #ffffff;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile__button-add-contetnt:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 620px) {
+  .profile__button-add-contetnt {
+    width: 100%;
+    margin: 0;
+  }
+}
