@@ -1,16 +1,19 @@
 # Project 4: Around The U.S.
 
-### Overview
+This is a project built to practice vanilla HTML, CSS and JavaScript web page building capabilities according to a designer made Figma specification. The project incorproates technologies allowing for responsive and interactive web page building such as flexbox and grid and no external frameworks are used. The project is build in accordance to BEM methodolody for CSS and HTML elements as well as the entire file structure directory.
 
-* Figma
-* Images
+### Built With
 
-**Figma**
+---
 
-* [Link to the project in Figma](https://www.figma.com/file/SurN1jaeEQIhuZEDMhmWWf/Sprint-4-Around-The-U.S.-desktop-mobile?node-id=0%3A1)
+- HTML5
+- CSS3
+- FIGMA
 
-**Images**
+### Made by
 
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
+<h4>Dmitriy Kirov</h4>
 
-Have fun with JavaScript!
+Project Link:
+[Around The U.S.](https://github.com/V0rikUA/web_project_4)
+[Preview](https://v0rikua.github.io/web_project_4/index.html)
