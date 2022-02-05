@@ -2,6 +2,7 @@
   padding: 0;
   width: 150px;
   height: 50px;
+  background: url(../../../images/add_button.svg) no-repeat center;
   margin: auto 0 auto auto;
   border: 2px solid #ffffff;
   box-sizing: border-box;
@@ -16,6 +17,7 @@
 
 @media screen and (max-width: 620px) {
   .profile__button-add-contetnt {
+    background-size: 16px 16px;
     width: 100%;
     margin: 0;
   }

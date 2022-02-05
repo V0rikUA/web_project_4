@@ -2,6 +2,7 @@
   width: 24px;
   height: 24px;
   border: 1px solid #ffffff;
+  background: url(../../../images/edit-profile_button.svg) no-repeat center;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
@@ -16,5 +17,6 @@
   .profile__button-edit {
     width: 18px;
     height: 18px;
+    background-size: 7.5px 7.5px;
   }
 }
