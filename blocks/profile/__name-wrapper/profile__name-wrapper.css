@@ -3,6 +3,10 @@
   flex-direction: row;
   column-gap: 18px;
   align-items: center;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media screen and (max-width: 450px) {
