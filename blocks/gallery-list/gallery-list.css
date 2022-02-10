@@ -4,9 +4,16 @@
   width: 100%;
   display: grid;
   justify-items: center;
-  grid-template-columns: repeat(auto-fill, minmax(282px, 1fr));
+  grid-template-columns: repeat(3, 282px);
   gap: 20px 17px;
   list-style: none;
+}
+
+@media screen and (max-width: 880px) {
+  .gallery-list {
+    grid-template-columns: repeat(2, 282px);
+    justify-content: center;
+  }
 }
 
 @media screen and (max-width: 620px) {

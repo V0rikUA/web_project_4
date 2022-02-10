@@ -23,10 +23,7 @@
 @import url(../blocks/popup/_active/popup_active.css);
 
 /*                FORM BLOCK                      */
-@import url(../blocks/form/__input-error/form__input-error.css);
-@import url(../blocks/form/__input-error/form__input-error.css);
 @import url(../blocks/form/__input/form__input.css);
-@import url(../blocks/form/__input/_type/form__input_type_error.css);
 @import url(../blocks/form/__input/form__input.css);
 @import url(../blocks/form/__submit-button/form__submit-button.css);
 
