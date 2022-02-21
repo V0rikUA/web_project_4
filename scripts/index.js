@@ -6,8 +6,8 @@ const userInputProfession = document.querySelector(".form__input_type_title");
 const profileName = document.querySelector(".profile__name");
 const profileProfession = document.querySelector(".profile__profession");
 const submitButton = document.querySelector(".form__submit-button");
-const popupProfile = document.querySelector(".popup__profile");
-const formProfile = document.querySelector(".form__profile");
+const popupProfile = document.querySelector(".popup_type_profile");
+const formProfile = document.querySelector(".form_type_profile");
 
 //NewItem variables
 const newItemButton = document.querySelector(".profile__button-add-contetnt");
@@ -16,11 +16,11 @@ const galleryItemTemplate = document.querySelector("#gallary-list__item__templat
 const popupCloseButtonNewItem = document.querySelector(".popup__close-button-gallery-item");
 const galleryNewItemTitle = document.querySelector(".form__input_type_new-gallery-item-title");
 const galleryNewItemLink = document.querySelector(".form__input_type_new-gallery-item-img-link");
-const popupNewItem = document.querySelector(".popup__new-gallery-item");
+const popupNewItem = document.querySelector(".popup_type_new-gallery-item");
 const galleryList = document.querySelector(".gallery-list");
 const deleteButton = document.querySelector(".gallery-list__delete-button");
 const likeButton = document.querySelector(".gallery-list__like-button");
-const formNewItem = document.querySelector(".form__new-gallery-item");
+const formNewItem = document.querySelector(".form_type_new-gallery-item");
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -49,7 +49,7 @@ const initialCards = [
 ];
 
 //Prewiev variables
-const previewPopup = document.querySelector(".popup__preview");
+const previewPopup = document.querySelector(".popup_type_preview");
 const previewPopupImage = document.querySelector(".popup__preview-image");
 const previewPopupCloseButton = document.querySelector(".popup__close-button-preview");
 const previewPopupDescription = document.querySelector(".popup__description");
