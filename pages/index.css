@@ -15,11 +15,12 @@
 @import url(../blocks/form/form.css);
 
 /*                POPUP BLOCK                     */
-@import url(../blocks/popup/__close-button/_place/popup__close-button_place_preview.css);
 @import url(../blocks/popup/__close-button/popup__close-button.css);
 @import url(../blocks/popup/__description/popup__description.css);
+@import url(../blocks/popup/__preview-image/popup__preview-image.css);
 @import url(../blocks/popup/__title/popup__title.css);
 @import url(../blocks/popup/__window/popup__window.css);
+@import url(../blocks/popup//__window/popup__window_preview.css);
 @import url(../blocks/popup/_active/popup_active.css);
 
 /*                FORM BLOCK                      */
@@ -45,6 +46,8 @@
 @import url(../blocks/gallery-list/__description-block/gallery-list__description-block.css);
 @import url(../blocks/gallery-list/__image-description/gallery-list__image-description.css);
 @import url(../blocks/gallery-list/__like-button/gallery-list__like-button.css);
+@import url(../blocks/gallery-list/__delete-button/gallery-list__delete-button.css);
+@import url(../blocks/gallery-list/__like-button/gallery-list__like-button-active.css);
 
 /*                FOOTER BLOCK                      */
 @import url(../blocks/footer/__copyright/footer__copyright.css);
