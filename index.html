@@ -8,36 +8,50 @@
     <title>Document</title>
   </head>
   <body class="root">
-    <div class="popup">
+    <div class="popup popup__profile">
       <div class="popup__window">
-        <button
-          type="button"
-          class="button popup__close-button popup__close-button_place_profile"
-          aria-label="close"
-        ></button>
+        <button type="button" class="button popup__close-button popup__close-button-profile" aria-label="close"></button>
         <h2 class="popup__title">Edit profile</h2>
-        <form class="form" name="profileEditForm" novalidate>
-          <input
-            type="text"
-            class="form__input form__input_type_name"
-            name="profileFormNameInput"
-          />
-          <input
-            type="text"
-            class="form__input form__input_type_title"
-            name="profileFormTitleInput"
-          />
-          <button type="submit" class="button form__submit-button">Save</button>
+        <form class="form form__profile" name="profileEditForm" novalidate>
+          <input type="text" class="form__input form__input_type_name" name="profileFormNameInput" />
+          <input type="text" class="form__input form__input_type_title" name="profileFormTitleInput" />
+          <button type="submit" class="button form__submit-button form__submit-button_profile">Save</button>
         </form>
       </div>
     </div>
 
+    <div class="popup popup__new-gallery-item">
+      <div class="popup__window">
+        <button type="button" class="button popup__close-button popup__close-button-gallery-item" aria-label="close"></button>
+        <h2 class="popup__title">New place</h2>
+        <form class="form form__new-gallery-item" name="newGalleryItemForm" novalidate>
+          <input
+            type="text"
+            class="form__input form__input_type_new-gallery-item-title"
+            name="newGalleryItemFormTitleInput"
+            placeholder="Title"
+          />
+          <input
+            type="text"
+            class="form__input form__input_type_new-gallery-item-img-link"
+            name="newGalleryItemFormImgLinkInput"
+            placeholder="Image link"
+          />
+          <button type="submit" class="button form__submit-button form__submit-button_new-gallery-item">Create</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup__preview">
+      <div class="popup__window popup__window_preview">
+        <button type="button" class="button popup__close-button popup__close-button-preview" aria-label="close"></button>
+        <img src=" " alt="preview image" class="popup__preview-image" />
+        <p class="popup__description"></p>
+      </div>
+    </div>
+
     <header class="header">
-      <img
-        src="./images/logo.svg"
-        alt="logo image with text 'Around the U.S.'"
-        class="header__logo"
-      />
+      <img src="./images/logo.svg" alt="logo image with text 'Around the U.S.'" class="header__logo" />
     </header>
     <main class="content">
       <section class="profile">
@@ -45,127 +59,32 @@
         <div class="profile__info">
           <div class="profile__name-wrapper">
             <h1 class="profile__name">Jacques Cousteau</h1>
-            <button
-              type="button"
-              class="button profile__button-edit"
-              aria-label="edit"
-            ></button>
+            <button type="button" class="button profile__button-edit" aria-label="edit"></button>
           </div>
           <p class="profile__profession">Explorer</p>
         </div>
-        <button
-          type="button"
-          class="button profile__button-add-contetnt"
-          aria-label="add"
-        ></button>
+        <button type="button" class="button profile__button-add-contetnt" aria-label="add"></button>
       </section>
 
       <section class="gallery">
-        <ul class="gallery-list">
-          <li class="gallery-list__item">
-            <img
-              src="./images/Yisemite_Valley.png"
-              alt="the view of the river surrounded by trees in front of mountains"
-              class="gallery-list__image"
-            />
-            <div class="gallery-list__description-block">
-              <h2 class="gallery-list__image-description">Yosemite Valley</h2>
-              <button type="button" class="button gallery-list__like-button">
-                <img
-                  src="./images/like-button_unactive.svg"
-                  alt="a heart image that used to show if like the picture by clicking it"
-                />
-              </button>
-            </div>
-          </li>
-          <li class="gallery-list__item">
-            <img
-              src="./images/Lake_Louise.png"
-              alt="the view of lake between two mountains"
-              class="gallery-list__image"
-            />
-            <div class="gallery-list__description-block">
-              <h2 class="gallery-list__image-description">Lake Louise</h2>
-              <button type="button" class="button gallery-list__like-button">
-                <img
-                  src="./images/like-button_unactive.svg"
-                  alt="a heart image that used to show if like the picture by clicking it"
-                />
-              </button>
-            </div>
-          </li>
-          <li class="gallery-list__item">
-            <img
-              src="./images/Bald_Mountains.png"
-              alt="the view of sunset upon the mountains"
-              class="gallery-list__image"
-            />
-            <div class="gallery-list__description-block">
-              <h2 class="gallery-list__image-description">Bald Mountains</h2>
-              <button type="button" class="button gallery-list__like-button">
-                <img
-                  src="./images/like-button_unactive.svg"
-                  alt="a heart image that used to show if like the picture by clicking it"
-                />
-              </button>
-            </div>
-          </li>
-          <li class="gallery-list__item">
-            <img
-              src="./images/Latemar.png"
-              alt="the view of mountains at night under the bright stars"
-              class="gallery-list__image"
-            />
-            <div class="gallery-list__description-block">
-              <h2 class="gallery-list__image-description">Latermar</h2>
-              <button type="button" class="button gallery-list__like-button">
-                <img
-                  src="./images/like-button_unactive.svg"
-                  alt="a heart image that used to show if like the picture by clicking it"
-                />
-              </button>
-            </div>
-          </li>
-          <li class="gallery-list__item">
-            <img
-              src="./images/Vanoise_National.png"
-              alt="lake view in the mountains"
-              class="gallery-list__image"
-            />
-            <div class="gallery-list__description-block">
-              <h2 class="gallery-list__image-description">
-                Vanoise National Park
-              </h2>
-              <button type="button" class="button gallery-list__like-button">
-                <img
-                  src="./images/like-button_unactive.svg"
-                  alt="a heart image that used to show if like the picture by clicking it"
-                />
-              </button>
-            </div>
-          </li>
-          <li class="gallery-list__item">
-            <img
-              src="./images/Lago_di_Braies.png"
-              alt="the view of the boats at mountain lake near the pier"
-              class="gallery-list__image"
-            />
-            <div class="gallery-list__description-block">
-              <h2 class="gallery-list__image-description">Lago di Braies</h2>
-              <button type="button" class="button gallery-list__like-button">
-                <img
-                  src="./images/like-button_unactive.svg"
-                  alt="a heart image that used to show if like the picture by clicking it"
-                />
-              </button>
-            </div>
-          </li>
-        </ul>
+        <ul class="gallery-list"></ul>
       </section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">© 2021 Around The U.S.</p>
     </footer>
+    <template id="gallary-list__item__template">
+      <li class="gallery-list__item">
+        <button type="button" class="button gallery-list__delete-button" aria-label="delete-button">
+          <img src="./images/Trash.svg" alt="an image of trash bin" />
+        </button>
+        <img src="" alt="" class="gallery-list__image" />
+        <div class="gallery-list__description-block">
+          <h2 class="gallery-list__image-description"></h2>
+          <button type="button" class="button gallery-list__like-button" arial-label="like-button"></button>
+        </div>
+      </li>
+    </template>
     <script type="text/javascript" src="./scripts/index.js"></script>
   </body>
 </html>

@@ -1,0 +1,7 @@
+.gallery-list__delete-button {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 18px;
+  right: 15px;
+}

@@ -1,3 +1,9 @@
+.gallery-list__like-button {
+  max-width: 21px;
+  width: 100%;
+  background: url(../../../images/like-button_unactive.svg) no-repeat center;
+}
+
 .gallery-list__like-button:hover {
   opacity: 0.5;
 }
