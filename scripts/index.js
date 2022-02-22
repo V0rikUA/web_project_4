@@ -5,7 +5,6 @@ const userInputName = document.querySelector(".form__input_type_name");
 const userInputProfession = document.querySelector(".form__input_type_title");
 const profileName = document.querySelector(".profile__name");
 const profileProfession = document.querySelector(".profile__profession");
-const submitButton = document.querySelector(".form__submit-button");
 const popupProfile = document.querySelector(".popup_type_profile");
 const formProfile = document.querySelector(".form_type_profile");
 
@@ -54,7 +53,7 @@ const previewPopupImage = document.querySelector(".popup__preview-image");
 const previewPopupCloseButton = document.querySelector(".popup__close-button-preview");
 const previewPopupDescription = document.querySelector(".popup__description");
 
-function newGalleryItem(item) {
+function createNewGalleryItem(item) {
   const newItem = galleryItemTemplate.querySelector(".gallery-list__item").cloneNode(true);
 
   newItem.querySelector(".gallery-list__image-description").textContent = item.name;
@@ -68,19 +67,21 @@ function newGalleryItem(item) {
   newItem.querySelector(".gallery-list__delete-button").addEventListener("click", () => {
     newItem.remove();
   });
+  newItem.querySelector(".gallery-list__image").addEventListener("click", () => {
+    previewPopupImage.src = item.link;
+    previewPopupDescription.textContent = item.name;
+    togglePopup(previewPopup);
+  });
 
-  const galleryImage = newItem.querySelector(".gallery-list__image");
-  const galleryImageDescription = newItem.querySelector(".gallery-list__image-description");
-  galleryImage.alt = galleryImageDescription.textContent;
-  galleryImage.addEventListener("click", handleImageClick);
+  galleryNewItemTitle.value = "";
+  galleryNewItemLink.value = "";
 
-  galleryList.prepend(newItem);
+  return newItem;
 }
 
-function handleImageClick(event) {
-  previewPopupImage.src = event.target.src;
-  previewPopupDescription.textContent = event.target.alt;
-  risePopup(previewPopup);
+function prependNewItem(item) {
+  const newGalleryItem = createNewGalleryItem(item);
+  galleryList.prepend(newGalleryItem);
 }
 
 function submitNewGalleryItem(event) {
@@ -89,51 +90,49 @@ function submitNewGalleryItem(event) {
     name: galleryNewItemTitle.value,
     link: galleryNewItemLink.value,
   };
-  risePopup(popupNewItem);
-  newGalleryItem(newItem);
+  togglePopup(popupNewItem);
+  prependNewItem(newItem);
 }
 
 function renderInitiateGallery(galleryItems) {
   initialCards.forEach((item) => {
-    newGalleryItem(item);
+    prependNewItem(item);
   });
 }
 
-function risePopup(element) {
+function togglePopup(element) {
   element.classList.toggle("popup_active");
 }
 
-function editProfileButtonHandler() {
+function openProfilePopup() {
   userInputName.value = profileName.textContent;
   userInputProfession.value = profileProfession.textContent;
-  risePopup(popupProfile);
+  togglePopup(popupProfile);
 }
 
 function addNewItem(event) {
   event.preventDefault();
-  galleryNewItemTitle.textContent = "";
-  galleryNewItemLink.textContent = "";
-  risePopup(popupNewItem);
+  togglePopup(popupNewItem);
 }
 
-function submitProfileButtonHandler(event) {
+function handleProfileFormSubmit(event) {
   event.preventDefault();
   profileName.textContent = userInputName.value;
   profileProfession.textContent = userInputProfession.value;
-  risePopup(popupProfile);
+  togglePopup(popupProfile);
 }
 
 renderInitiateGallery(initialCards);
-profileEditButton.addEventListener("click", editProfileButtonHandler);
+profileEditButton.addEventListener("click", openProfilePopup);
 newItemButton.addEventListener("click", addNewItem);
-formProfile.addEventListener("submit", submitProfileButtonHandler);
+formProfile.addEventListener("submit", handleProfileFormSubmit);
 formNewItem.addEventListener("submit", submitNewGalleryItem);
 popupCloseButtonProfile.addEventListener("click", () => {
-  risePopup(popupProfile);
+  togglePopup(popupProfile);
 });
 popupCloseButtonNewItem.addEventListener("click", () => {
-  risePopup(popupNewItem);
+  togglePopup(popupNewItem);
 });
 previewPopupCloseButton.addEventListener("click", () => {
-  risePopup(previewPopup);
+  togglePopup(previewPopup);
 });
