@@ -24,26 +24,32 @@ const initialCards = [
   {
     name: "Yosemite Valley",
     link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
+    alt: "the view of the river surrounded by trees in front of mountains",
   },
   {
     name: "Lake Louise",
     link: "https://code.s3.yandex.net/web-code/lake-louise.jpg",
+    alt: "the view of lake between two mountains",
   },
   {
     name: "Bald Mountains",
     link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg",
+    alt: "the view of sunset upon the mountains",
   },
   {
     name: "Latemar",
     link: "https://code.s3.yandex.net/web-code/latemar.jpg",
+    alt: "the view of mountains at night under the bright stars",
   },
   {
     name: "Vanoise National Park",
     link: "https://code.s3.yandex.net/web-code/vanoise.jpg",
+    alt: "lake view in the mountains",
   },
   {
     name: "Lago di Braies",
     link: "https://code.s3.yandex.net/web-code/lago.jpg",
+    alt: "the view of the boats at mountain lake near the pier",
   },
 ];
 
@@ -55,10 +61,12 @@ const previewPopupDescription = document.querySelector(".popup__description");
 
 function createNewGalleryItem(item) {
   const newItem = galleryItemTemplate.querySelector(".gallery-list__item").cloneNode(true);
+  const galleryImage = newItem.querySelector(".gallery-list__image");
+  const galleryImageDescription = newItem.querySelector(".gallery-list__image-description");
 
-  newItem.querySelector(".gallery-list__image-description").textContent = item.name;
-
-  newItem.querySelector(".gallery-list__image").src = item.link;
+  galleryImage.src = item.link;
+  galleryImage.alt = item.alt;
+  galleryImageDescription.textContent = item.name;
 
   newItem.querySelector(".gallery-list__like-button").addEventListener("click", (e) => {
     e.target.classList.toggle("gallery-list__like-button-active");
@@ -67,14 +75,13 @@ function createNewGalleryItem(item) {
   newItem.querySelector(".gallery-list__delete-button").addEventListener("click", () => {
     newItem.remove();
   });
-  newItem.querySelector(".gallery-list__image").addEventListener("click", () => {
-    previewPopupImage.src = item.link;
-    previewPopupDescription.textContent = item.name;
+  galleryImage.addEventListener("click", () => {
+    previewPopupImage.src = galleryImage.src;
+    previewPopupImage.alt = galleryImage.alt;
+    previewPopupDescription.textContent = galleryImageDescription.textContent;
+
     togglePopup(previewPopup);
   });
-
-  galleryNewItemTitle.value = "";
-  galleryNewItemLink.value = "";
 
   return newItem;
 }
@@ -91,6 +98,10 @@ function submitNewGalleryItem(event) {
     link: galleryNewItemLink.value,
   };
   togglePopup(popupNewItem);
+
+  galleryNewItemTitle.value = "";
+  galleryNewItemLink.value = "";
+
   prependNewItem(newItem);
 }
 
