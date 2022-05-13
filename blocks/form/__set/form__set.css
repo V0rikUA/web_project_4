@@ -1,0 +1,10 @@
+.form__set {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  border: 0;
+  margin-inline: 0;
+  padding-block: 0;
+  padding-inline: 0;
+}

@@ -1,7 +1,5 @@
 .form {
   margin: 54px 36px 36px;
-  display: flex;
-  flex-direction: column;
 }
 
 @media screen and (max-width: 425px) {

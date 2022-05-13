@@ -1,3 +1,18 @@
+import { FormValidator } from "./validate.js";
+
+export const config = {
+  formSelector: ".form",
+  inputSelector: ".form__input",
+  errorClass: "form__input-error_active",
+  inactiveButtonClass: "form__submit-button-inactive",
+  inputErrorClass: "form__input_type_error",
+  submitButtonSelector: ".form__submit-button",
+  fieldSelector: ".form__set",
+};
+
+const validator = new FormValidator(config);
+const popupList = Array.from(document.querySelectorAll(".popup"));
+
 //credentialss variables
 const profileEditButton = document.querySelector(".profile__button-edit");
 const popupCloseButtonProfile = document.querySelector(".popup__close-button-profile");
@@ -123,6 +138,7 @@ function openProfilePopup() {
 
 function addNewItem(event) {
   event.preventDefault();
+  validator.resetValidation(formNewItem);
   togglePopup(popupNewItem);
 }
 
@@ -132,6 +148,24 @@ function handleProfileFormSubmit(event) {
   profileProfession.textContent = userInputProfession.value;
   togglePopup(popupProfile);
 }
+
+const closeByClickBackground = (event) => {
+  const isClosest = event.target.closest(".popup__window");
+
+  popupList.forEach((popupElement) => {
+    if (!isClosest && popupElement.classList.contains("popup_active")) {
+      togglePopup(popupElement);
+    }
+  });
+};
+
+const togglePopupEventHandler = (event) => {
+  const isKeyDownEsc = event.key === "Escape";
+  if (isKeyDownEsc) {
+    const activePopup = document.querySelector(".popup_active");
+    togglePopup(activePopup);
+  }
+};
 
 renderInitiateGallery(initialCards);
 profileEditButton.addEventListener("click", openProfilePopup);
@@ -147,3 +181,9 @@ popupCloseButtonNewItem.addEventListener("click", () => {
 previewPopupCloseButton.addEventListener("click", () => {
   togglePopup(previewPopup);
 });
+document.addEventListener(`keydown`, togglePopupEventHandler);
+popupList.forEach((popupElement) => {
+  popupElement.addEventListener("click", closeByClickBackground);
+});
+
+validator.enableValidation();
