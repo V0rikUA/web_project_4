@@ -47,7 +47,7 @@ export class FormValidator {
   }
 
   _setEventListeners(formElement) {
-    const inputList = Array.from(formElement.querySelectorAll(this._inputSelector));
+    const inputList = [...formElement.querySelectorAll(this._inputSelector)];
     const buttonElement = formElement.querySelector(this._submitButtonSelector);
 
     inputList.forEach((inputElement) => {
@@ -59,7 +59,7 @@ export class FormValidator {
   }
 
   resetValidation(formElement) {
-    const inputList = Array.from(formElement.querySelectorAll(this._inputSelector));
+    const inputList = [...formElement.querySelectorAll(this._inputSelector)];
     const buttonElement = formElement.querySelector(this._submitButtonSelector);
 
     inputList.forEach((inputElement) => {
@@ -69,13 +69,13 @@ export class FormValidator {
   }
 
   enableValidation() {
-    const formList = Array.from(document.querySelectorAll(this._formSelector));
+    const formList = [...document.querySelectorAll(this._formSelector)];
     formList.forEach((formElement) => {
       formElement.addEventListener("submit", function (event) {
         event.preventDefault();
       });
 
-      const fieldsetList = Array.from(formElement.querySelectorAll(this._fieldSelector));
+      const fieldsetList = [...formElement.querySelectorAll(this._fieldSelector)];
 
       fieldsetList.forEach((fieldset) => {
         this._setEventListeners(fieldset);

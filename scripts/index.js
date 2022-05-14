@@ -24,17 +24,14 @@ const popupProfile = document.querySelector(".popup_type_profile");
 const formProfile = document.querySelector(".form_type_profile");
 
 //NewItem variables
-const newItemButton = document.querySelector(".profile__button-add-contetnt");
-const subminNewItemButton = document.querySelector(".form__submit-button_new-gallery-item");
+const addGalleryItemButton = document.querySelector(".profile__button-add-contetnt");
 const galleryItemTemplate = document.querySelector("#gallary-list__item__template").content;
-const popupCloseButtonNewItem = document.querySelector(".popup__close-button-gallery-item");
-const galleryNewItemTitle = document.querySelector(".form__input_type_new-gallery-item-title");
-const galleryNewItemLink = document.querySelector(".form__input_type_new-gallery-item-img-link");
-const popupNewItem = document.querySelector(".popup_type_new-gallery-item");
-const galleryList = document.querySelector(".gallery-list");
-const deleteButton = document.querySelector(".gallery-list__delete-button");
-const likeButton = document.querySelector(".gallery-list__like-button");
-const formNewItem = document.querySelector(".form_type_new-gallery-item");
+const addGalleryItemPopupCloseButton = document.querySelector(".popup__close-button-gallery-item");
+const inputElementGalleryItemTitle = document.querySelector(".form__input_type_new-gallery-item-title");
+const inputElementGalleryItemLink = document.querySelector(".form__input_type_new-gallery-item-img-link");
+const galleryItemPopup = document.querySelector(".popup_type_new-gallery-item");
+const galleryItemsList = document.querySelector(".gallery-list");
+const formAddGalleryItem = document.querySelector(".form_type_new-gallery-item");
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -74,21 +71,22 @@ const previewPopupImage = document.querySelector(".popup__preview-image");
 const previewPopupCloseButton = document.querySelector(".popup__close-button-preview");
 const previewPopupDescription = document.querySelector(".popup__description");
 
-function createNewGalleryItem(item) {
-  const newItem = galleryItemTemplate.querySelector(".gallery-list__item").cloneNode(true);
-  const galleryImage = newItem.querySelector(".gallery-list__image");
-  const galleryImageDescription = newItem.querySelector(".gallery-list__image-description");
+const createNewGalleryItem = (item) => {
+  const addedItem = galleryItemTemplate.querySelector(".gallery-list__item").cloneNode(true);
+  const galleryImage = addedItem.querySelector(".gallery-list__image");
+  const galleryImageDescription = addedItem.querySelector(".gallery-list__image-description");
 
   galleryImage.src = item.link;
   galleryImage.alt = item.alt;
   galleryImageDescription.textContent = item.name;
 
-  newItem.querySelector(".gallery-list__like-button").addEventListener("click", (e) => {
+  const galleryItemLikebutton = addedItem.querySelector(".gallery-list__like-button");
+  galleryItemLikebutton.addEventListener("click", (e) => {
     e.target.classList.toggle("gallery-list__like-button-active");
   });
 
-  newItem.querySelector(".gallery-list__delete-button").addEventListener("click", () => {
-    newItem.remove();
+  addedItem.querySelector(".gallery-list__delete-button").addEventListener("click", () => {
+    addedItem.remove();
   });
   galleryImage.addEventListener("click", () => {
     previewPopupImage.src = galleryImage.src;
@@ -98,68 +96,82 @@ function createNewGalleryItem(item) {
     togglePopup(previewPopup);
   });
 
-  return newItem;
-}
+  return addedItem;
+};
 
-function prependNewItem(item) {
+const renderGalleryItem = (item) => {
   const newGalleryItem = createNewGalleryItem(item);
-  galleryList.prepend(newGalleryItem);
-}
+  galleryItemsList.prepend(newGalleryItem);
+};
 
-function submitNewGalleryItem(event) {
+const submitNewGalleryItem = (event) => {
   event.preventDefault();
-  const newItem = {
-    name: galleryNewItemTitle.value,
-    link: galleryNewItemLink.value,
+  const addedItem = {
+    name: inputElementGalleryItemTitle.value,
+    link: inputElementGalleryItemLink.value,
   };
-  togglePopup(popupNewItem);
+  togglePopup(galleryItemPopup);
 
-  galleryNewItemTitle.value = "";
-  galleryNewItemLink.value = "";
+  formAddGalleryItem.reset();
+  validator.resetValidation(formAddGalleryItem);
 
-  prependNewItem(newItem);
-}
+  renderGalleryItem(addedItem);
+};
 
-function renderInitiateGallery(galleryItems) {
-  initialCards.forEach((item) => {
-    prependNewItem(item);
-  });
-}
+const renderInitiateGallery = (galleryItems) => {
+  galleryItems.forEach(renderGalleryItem);
+};
 
-function togglePopup(element) {
+const togglePopup = (element) => {
   element.classList.toggle("popup_active");
-}
+  const popupState = element.classList.contains("popup_active");
 
-function openProfilePopup() {
+  togglePopupCloseElementsEventListeners(popupState);
+};
+
+const openProfilePopup = () => {
+  fillProfileForm();
+  togglePopup(popupProfile);
+};
+
+const fillProfileForm = () => {
   userInputName.value = profileName.textContent;
   userInputProfession.value = profileProfession.textContent;
-  togglePopup(popupProfile);
-}
+};
 
-function addNewItem(event) {
+const addNewItem = (event) => {
   event.preventDefault();
-  validator.resetValidation(formNewItem);
-  togglePopup(popupNewItem);
-}
+  togglePopup(galleryItemPopup);
+};
 
-function handleProfileFormSubmit(event) {
+const handleProfileFormSubmit = (event) => {
   event.preventDefault();
   profileName.textContent = userInputName.value;
   profileProfession.textContent = userInputProfession.value;
   togglePopup(popupProfile);
-}
-
-const closeByClickBackground = (event) => {
-  const isClosest = event.target.closest(".popup__window");
-
-  popupList.forEach((popupElement) => {
-    if (!isClosest && popupElement.classList.contains("popup_active")) {
-      togglePopup(popupElement);
-    }
-  });
 };
 
-const togglePopupEventHandler = (event) => {
+const togglePopupCloseElementsEventListeners = (popupState) => {
+  if (popupState) {
+    document.addEventListener(`keydown`, closePopupByEscape);
+    popupList.forEach((popupElement) => {
+      popupElement.addEventListener("mousedown", closeByClickBackground);
+    });
+  } else {
+    document.removeEventListener(`keydown`, closePopupByEscape);
+    popupList.forEach((popupElement) => {
+      popupElement.removeEventListener("mousedown", closeByClickBackground);
+    });
+  }
+};
+
+const closeByClickBackground = (event) => {
+  if (event.target === event.currentTarget) {
+    togglePopup(event.target);
+  }
+};
+
+const closePopupByEscape = (event) => {
   const isKeyDownEsc = event.key === "Escape";
   if (isKeyDownEsc) {
     const activePopup = document.querySelector(".popup_active");
@@ -168,22 +180,19 @@ const togglePopupEventHandler = (event) => {
 };
 
 renderInitiateGallery(initialCards);
+
 profileEditButton.addEventListener("click", openProfilePopup);
-newItemButton.addEventListener("click", addNewItem);
+addGalleryItemButton.addEventListener("click", addNewItem);
 formProfile.addEventListener("submit", handleProfileFormSubmit);
-formNewItem.addEventListener("submit", submitNewGalleryItem);
+formAddGalleryItem.addEventListener("submit", submitNewGalleryItem);
 popupCloseButtonProfile.addEventListener("click", () => {
   togglePopup(popupProfile);
 });
-popupCloseButtonNewItem.addEventListener("click", () => {
-  togglePopup(popupNewItem);
+addGalleryItemPopupCloseButton.addEventListener("click", () => {
+  togglePopup(galleryItemPopup);
 });
 previewPopupCloseButton.addEventListener("click", () => {
   togglePopup(previewPopup);
-});
-document.addEventListener(`keydown`, togglePopupEventHandler);
-popupList.forEach((popupElement) => {
-  popupElement.addEventListener("click", closeByClickBackground);
 });
 
 validator.enableValidation();
