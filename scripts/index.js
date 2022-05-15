@@ -112,8 +112,7 @@ const submitNewGalleryItem = (event) => {
   };
   togglePopup(galleryItemPopup);
 
-  formAddGalleryItem.reset();
-  validator.resetValidation(formAddGalleryItem);
+  resetFormAddGalleryItem();
 
   renderGalleryItem(addedItem);
 };
@@ -141,7 +140,13 @@ const fillProfileForm = () => {
 
 const addNewItem = (event) => {
   event.preventDefault();
+  resetFormAddGalleryItem();
   togglePopup(galleryItemPopup);
+};
+
+const resetFormAddGalleryItem = () => {
+  formAddGalleryItem.reset();
+  validator.resetValidation(formAddGalleryItem);
 };
 
 const handleProfileFormSubmit = (event) => {
