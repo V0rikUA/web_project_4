@@ -126,7 +126,7 @@ const togglePopup = (element) => {
   element.classList.toggle("popup_active");
   const popupState = element.classList.contains("popup_active");
 
-  togglePopupCloseElementsEventListeners(popupState);
+  togglePopupCloseElementsEventListeners(popupState, element);
 };
 
 const openProfilePopup = () => {
@@ -151,17 +151,13 @@ const handleProfileFormSubmit = (event) => {
   togglePopup(popupProfile);
 };
 
-const togglePopupCloseElementsEventListeners = (popupState) => {
+const togglePopupCloseElementsEventListeners = (popupState, popupElement) => {
   if (popupState) {
     document.addEventListener(`keydown`, closePopupByEscape);
-    popupList.forEach((popupElement) => {
-      popupElement.addEventListener("mousedown", closeByClickBackground);
-    });
+    popupElement.addEventListener("mousedown", closeByClickBackground);
   } else {
     document.removeEventListener(`keydown`, closePopupByEscape);
-    popupList.forEach((popupElement) => {
-      popupElement.removeEventListener("mousedown", closeByClickBackground);
-    });
+    popupElement.removeEventListener("mousedown", closeByClickBackground);
   }
 };
 
