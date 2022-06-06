@@ -1,6 +1,8 @@
-import { FormValidator } from "./validate.js";
+import { FormValidator } from "./FormValidator.js";
+import { Card } from "./Card.js";
+import * as utils from "./utils.js";
 
-export const config = {
+export const formValidationConfig = {
   formSelector: ".form",
   inputSelector: ".form__input",
   errorClass: "form__input-error_active",
@@ -10,28 +12,17 @@ export const config = {
   fieldSelector: ".form__set",
 };
 
-const validator = new FormValidator(config);
-const popupList = Array.from(document.querySelectorAll(".popup"));
+export const validator = new FormValidator(formValidationConfig);
 
 //credentialss variables
 const profileEditButton = document.querySelector(".profile__button-edit");
 const popupCloseButtonProfile = document.querySelector(".popup__close-button-profile");
-const userInputName = document.querySelector(".form__input_type_name");
-const userInputProfession = document.querySelector(".form__input_type_title");
-const profileName = document.querySelector(".profile__name");
-const profileProfession = document.querySelector(".profile__profession");
-const popupProfile = document.querySelector(".popup_type_profile");
 const formProfile = document.querySelector(".form_type_profile");
 
 //NewItem variables
 const addGalleryItemButton = document.querySelector(".profile__button-add-contetnt");
-const galleryItemTemplate = document.querySelector("#gallary-list__item__template").content;
 const addGalleryItemPopupCloseButton = document.querySelector(".popup__close-button-gallery-item");
-const inputElementGalleryItemTitle = document.querySelector(".form__input_type_new-gallery-item-title");
-const inputElementGalleryItemLink = document.querySelector(".form__input_type_new-gallery-item-img-link");
-const galleryItemPopup = document.querySelector(".popup_type_new-gallery-item");
 const galleryItemsList = document.querySelector(".gallery-list");
-const formAddGalleryItem = document.querySelector(".form_type_new-gallery-item");
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -66,134 +57,50 @@ const initialCards = [
 ];
 
 //Prewiev variables
-const previewPopup = document.querySelector(".popup_type_preview");
-const previewPopupImage = document.querySelector(".popup__preview-image");
+const previewPopupElement = document.querySelector(".popup_type_preview");
 const previewPopupCloseButton = document.querySelector(".popup__close-button-preview");
-const previewPopupDescription = document.querySelector(".popup__description");
 
-const createNewGalleryItem = (item) => {
-  const addedItem = galleryItemTemplate.querySelector(".gallery-list__item").cloneNode(true);
-  const galleryImage = addedItem.querySelector(".gallery-list__image");
-  const galleryImageDescription = addedItem.querySelector(".gallery-list__image-description");
-
-  galleryImage.src = item.link;
-  galleryImage.alt = item.alt;
-  galleryImageDescription.textContent = item.name;
-
-  const galleryItemLikebutton = addedItem.querySelector(".gallery-list__like-button");
-  galleryItemLikebutton.addEventListener("click", (e) => {
-    e.target.classList.toggle("gallery-list__like-button-active");
-  });
-
-  addedItem.querySelector(".gallery-list__delete-button").addEventListener("click", () => {
-    addedItem.remove();
-  });
-  galleryImage.addEventListener("click", () => {
-    previewPopupImage.src = galleryImage.src;
-    previewPopupImage.alt = galleryImage.alt;
-    previewPopupDescription.textContent = galleryImageDescription.textContent;
-
-    togglePopup(previewPopup);
-  });
-
-  return addedItem;
+const cardConfig = {
+  cardTemplateSelector: "#gallary-list__item__template",
+  cardSelector: ".gallery-list__item",
+  imageSelector: ".gallery-list__image",
+  imageDescriptionSelector: ".gallery-list__image-description",
+  likeActiveSelector: "gallery-list__like-button-active",
+  likeButtonSelector: ".gallery-list__like-button",
+  deleteButtonSelector: ".gallery-list__delete-button",
+  previewPopupImageSelector: ".popup__preview-image",
+  previewPopupDescriptionSelector: ".popup__description",
+  previewPopupElement: previewPopupElement,
+  togglePopup: utils.togglePopup,
 };
 
-const renderGalleryItem = (item) => {
-  const newGalleryItem = createNewGalleryItem(item);
-  galleryItemsList.prepend(newGalleryItem);
-};
+function createCard(card) {
+  const newCard = new Card(card, cardConfig);
+  return newCard.getCard();
+}
 
-const submitNewGalleryItem = (event) => {
-  event.preventDefault();
-  const addedItem = {
-    name: inputElementGalleryItemTitle.value,
-    link: inputElementGalleryItemLink.value,
-  };
-  togglePopup(galleryItemPopup);
-
-  resetFormAddGalleryItem();
-
-  renderGalleryItem(addedItem);
+export const renderGalleryItem = (card) => {
+  galleryItemsList.prepend(createCard(card));
 };
 
 const renderInitiateGallery = (galleryItems) => {
   galleryItems.forEach(renderGalleryItem);
 };
 
-const togglePopup = (element) => {
-  element.classList.toggle("popup_active");
-  const popupState = element.classList.contains("popup_active");
-
-  togglePopupCloseElementsEventListeners(popupState, element);
-};
-
-const openProfilePopup = () => {
-  fillProfileForm();
-  togglePopup(popupProfile);
-};
-
-const fillProfileForm = () => {
-  userInputName.value = profileName.textContent;
-  userInputProfession.value = profileProfession.textContent;
-};
-
-const addNewItem = (event) => {
-  event.preventDefault();
-  resetFormAddGalleryItem();
-  togglePopup(galleryItemPopup);
-};
-
-const resetFormAddGalleryItem = () => {
-  formAddGalleryItem.reset();
-  validator.resetValidation(formAddGalleryItem);
-};
-
-const handleProfileFormSubmit = (event) => {
-  event.preventDefault();
-  profileName.textContent = userInputName.value;
-  profileProfession.textContent = userInputProfession.value;
-  togglePopup(popupProfile);
-};
-
-const togglePopupCloseElementsEventListeners = (popupState, popupElement) => {
-  if (popupState) {
-    document.addEventListener(`keydown`, closePopupByEscape);
-    popupElement.addEventListener("mousedown", closeByClickBackground);
-  } else {
-    document.removeEventListener(`keydown`, closePopupByEscape);
-    popupElement.removeEventListener("mousedown", closeByClickBackground);
-  }
-};
-
-const closeByClickBackground = (event) => {
-  if (event.target === event.currentTarget) {
-    togglePopup(event.target);
-  }
-};
-
-const closePopupByEscape = (event) => {
-  const isKeyDownEsc = event.key === "Escape";
-  if (isKeyDownEsc) {
-    const activePopup = document.querySelector(".popup_active");
-    togglePopup(activePopup);
-  }
-};
-
 renderInitiateGallery(initialCards);
 
-profileEditButton.addEventListener("click", openProfilePopup);
-addGalleryItemButton.addEventListener("click", addNewItem);
-formProfile.addEventListener("submit", handleProfileFormSubmit);
-formAddGalleryItem.addEventListener("submit", submitNewGalleryItem);
+profileEditButton.addEventListener("click", utils.openProfilePopup);
+addGalleryItemButton.addEventListener("click", utils.addNewItem);
+formProfile.addEventListener("submit", utils.handleProfileFormSubmit);
+utils.formAddGalleryItem.addEventListener("submit", utils.submitNewGalleryItem);
 popupCloseButtonProfile.addEventListener("click", () => {
-  togglePopup(popupProfile);
+  utils.togglePopup(utils.popupProfile);
 });
 addGalleryItemPopupCloseButton.addEventListener("click", () => {
-  togglePopup(galleryItemPopup);
+  utils.togglePopup(utils.galleryItemPopup);
 });
 previewPopupCloseButton.addEventListener("click", () => {
-  togglePopup(previewPopup);
+  utils.togglePopup(previewPopupElement);
 });
 
 validator.enableValidation();
