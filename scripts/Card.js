@@ -12,7 +12,7 @@ export class Card {
     this._imageSelector = config.imageSelector;
     this._imageDescriptionSelector = config.imageDescriptionSelector;
     this._likeButtonSelector = config.likeButtonSelector;
-    this._LikeActiveSelector = config.likeActiveSelector;
+    this._likeActiveSelector = config.likeActiveSelector;
     this._deleteButtonSelector = config.deleteButtonSelector;
     this._previewPopupImageSelector = config.previewPopupImageSelector;
     this._previewPopupDescriptionSelector = config.previewPopupDescriptionSelector;
@@ -42,6 +42,7 @@ export class Card {
 
   _handleDeleteButtonClick() {
     this._cardElement.remove();
+    this._cardElement = null;
   }
 
   _handleCardImageClick() {

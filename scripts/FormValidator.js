@@ -1,4 +1,3 @@
-//Validation block
 export class FormValidator {
   constructor(config) {
     this._formSelector = config.formSelector;
@@ -8,6 +7,9 @@ export class FormValidator {
     this._inputErrorClass = config.inputErrorClass;
     this._submitButtonSelector = config.submitButtonSelector;
     this._fieldSelector = config.fieldSelector;
+
+    this._formElement = document.querySelector(this._formSelector);
+    this._fieldsetElement = this._formElement.querySelector(this._fieldSelector);
   }
 
   _showInputError(formElement, inputElement, errorMessage) {
@@ -46,13 +48,13 @@ export class FormValidator {
     }
   }
 
-  _setEventListeners(formElement) {
-    const inputList = [...formElement.querySelectorAll(this._inputSelector)];
-    const buttonElement = formElement.querySelector(this._submitButtonSelector);
+  _setEventListeners() {
+    const inputList = [...this._fieldsetElement.querySelectorAll(this._inputSelector)];
+    const buttonElement = this._fieldsetElement.querySelector(this._submitButtonSelector);
 
     inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
-        this._checkInputValidity(formElement, inputElement);
+        this._checkInputValidity(this._fieldsetElement, inputElement);
         this._toggleButtonState(inputList, buttonElement);
       });
     });
@@ -69,17 +71,10 @@ export class FormValidator {
   }
 
   enableValidation() {
-    const formList = [...document.querySelectorAll(this._formSelector)];
-    formList.forEach((formElement) => {
-      formElement.addEventListener("submit", function (event) {
-        event.preventDefault();
-      });
-
-      const fieldsetList = [...formElement.querySelectorAll(this._fieldSelector)];
-
-      fieldsetList.forEach((fieldset) => {
-        this._setEventListeners(fieldset);
-      });
+    this._formElement.addEventListener("submit", function (event) {
+      event.preventDefault();
     });
+
+    this._setEventListeners();
   }
 }

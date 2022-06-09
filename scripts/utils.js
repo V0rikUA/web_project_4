@@ -1,14 +1,5 @@
-import { validator, renderGalleryItem } from "./index.js";
-
-const inputElementGalleryItemTitle = document.querySelector(".form__input_type_new-gallery-item-title");
-const inputElementGalleryItemLink = document.querySelector(".form__input_type_new-gallery-item-img-link");
-const profileName = document.querySelector(".profile__name");
-const profileProfession = document.querySelector(".profile__profession");
-const galleryItemPopup = document.querySelector(".popup_type_new-gallery-item");
-const popupProfile = document.querySelector(".popup_type_profile");
-const formAddGalleryItem = document.querySelector(".form_type_new-gallery-item");
-const userInputName = document.querySelector(".form__input_type_name");
-const userInputProfession = document.querySelector(".form__input_type_title");
+import { fillProfileForm } from "./index.js";
+import * as constant from "./constants.js";
 
 const togglePopup = (element) => {
   element.classList.toggle("popup_active");
@@ -19,30 +10,7 @@ const togglePopup = (element) => {
 
 const openProfilePopup = () => {
   fillProfileForm();
-  togglePopup(popupProfile);
-};
-
-const fillProfileForm = () => {
-  userInputName.value = profileName.textContent;
-  userInputProfession.value = profileProfession.textContent;
-};
-
-const addNewItem = (event) => {
-  event.preventDefault();
-  resetFormAddGalleryItem();
-  togglePopup(galleryItemPopup);
-};
-
-const resetFormAddGalleryItem = () => {
-  formAddGalleryItem.reset();
-  validator.resetValidation(formAddGalleryItem);
-};
-
-const handleProfileFormSubmit = (event) => {
-  event.preventDefault();
-  profileName.textContent = userInputName.value;
-  profileProfession.textContent = userInputProfession.value;
-  togglePopup(popupProfile);
+  togglePopup(constant.popupProfile);
 };
 
 const togglePopupCloseElementsEventListeners = (popupState, popupElement) => {
@@ -69,26 +37,4 @@ const closePopupByEscape = (event) => {
   }
 };
 
-const submitNewGalleryItem = (event) => {
-  event.preventDefault();
-  const addedItem = {
-    name: inputElementGalleryItemTitle.value,
-    link: inputElementGalleryItemLink.value,
-  };
-  togglePopup(galleryItemPopup);
-
-  resetFormAddGalleryItem();
-
-  renderGalleryItem(addedItem);
-};
-
-export {
-  togglePopup,
-  openProfilePopup,
-  addNewItem,
-  handleProfileFormSubmit,
-  submitNewGalleryItem,
-  galleryItemPopup,
-  popupProfile,
-  formAddGalleryItem,
-};
+export { togglePopup, openProfilePopup };
