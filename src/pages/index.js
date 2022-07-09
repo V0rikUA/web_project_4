@@ -1,9 +1,12 @@
-import { FormValidator } from "./FormValidator.js";
-import { Card } from "./Card.js";
-import * as utils from "./utils.js";
-import * as constant from "./constants.js";
+import { FormValidator } from "../components/FormValidator.js";
+import { Card } from "../components/Card.js";
+import * as utils from "../utils/utils.js";
+import * as constant from "../utils/constants.js";
+import Section from "../components/Section.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
 
-export const formProfileValidationConfig = {
+const formProfileValidationConfig = {
   formSelector: ".form_type_profile",
   inputSelector: ".form__input",
   errorClass: "form__input-error_active",
@@ -13,7 +16,7 @@ export const formProfileValidationConfig = {
   fieldSelector: ".form__set-profile",
 };
 
-export const formNewCardValidationConfig = {
+const formNewCardValidationConfig = {
   formSelector: ".form_type_new-gallery-item",
   inputSelector: ".form__input",
   errorClass: "form__input-error_active",
@@ -23,8 +26,11 @@ export const formNewCardValidationConfig = {
   fieldSelector: ".form__set-gallery",
 };
 
-const profileFormValidator = new FormValidator(formProfileValidationConfig);
-const newCardFormValidator = new FormValidator(formNewCardValidationConfig);
+const handleNewItemSubmit = () => {};
+
+const popupwithImage = new PopupWithImage(constant.previewPopupSelector);
+const popupWithFormProfile = new PopupWithForm(constant.popupProfileSelector, handleProfileSubmit);
+const popupWithFormImage = new PopupWithForm(constant.newItemPopupSelector, handleNewItemSubmit);
 
 const cardConfig = {
   cardTemplateSelector: "#gallary-list__item__template",
@@ -36,9 +42,20 @@ const cardConfig = {
   deleteButtonSelector: ".gallery-list__delete-button",
   previewPopupImageSelector: ".popup__preview-image",
   previewPopupDescriptionSelector: ".popup__description",
-  previewPopupElement: constant.previewPopupElement,
-  togglePopup: utils.togglePopup,
+  previewPopupElement: constant.previewPopupSelector,
+  handleCardImageClick: popupwithImage.open,
 };
+
+const profileFormValidator = new FormValidator(formProfileValidationConfig);
+const newCardFormValidator = new FormValidator(formNewCardValidationConfig);
+
+const renderCard = (cardItem) => {
+  const card = new Card(card, cardConfig);
+  return card.getCard();
+};
+
+const initialCards = new Section({ items: constant.initialCards, renderer: renderCard }, constant.galleryItemsList);
+initialCards.renderer();
 
 function createCard(card) {
   const newCard = new Card(card, cardConfig);
@@ -104,6 +121,6 @@ constant.previewPopupCloseButton.addEventListener("click", () => {
   utils.togglePopup(constant.previewPopupElement);
 });
 
-//Enable validation for profile and new card fildsets
+// //Enable validation for profile and new card fildsets
 profileFormValidator.enableValidation();
 newCardFormValidator.enableValidation();

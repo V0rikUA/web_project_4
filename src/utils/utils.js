@@ -1,4 +1,4 @@
-import { fillProfileForm } from "./index.js";
+//import { fillProfileForm } from "./index.js";
 import * as constant from "./constants.js";
 
 const togglePopup = (element) => {
@@ -10,7 +10,7 @@ const togglePopup = (element) => {
 
 const openProfilePopup = () => {
   fillProfileForm();
-  togglePopup(constant.popupProfile);
+  togglePopup(constant.popupProfileSelector);
 };
 
 const togglePopupCloseElementsEventListeners = (popupState, popupElement) => {

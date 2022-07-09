@@ -4,7 +4,7 @@ export const popupCloseButtonProfile = document.querySelector(".popup__close-but
 export const formProfile = document.querySelector(".form_type_profile");
 export const profileName = document.querySelector(".profile__name");
 export const profileProfession = document.querySelector(".profile__profession");
-export const popupProfile = document.querySelector(".popup_type_profile");
+export const popupProfileSelector = ".popup_type_profile";
 export const userInputName = document.querySelector(".form__input_type_name");
 export const userInputProfession = document.querySelector(".form__input_type_title");
 
@@ -14,7 +14,7 @@ export const inputElementGalleryItemTitle = document.querySelector(".form__input
 export const inputElementGalleryItemLink = document.querySelector(".form__input_type_new-gallery-item-img-link");
 export const addGalleryItemPopupCloseButton = document.querySelector(".popup__close-button-gallery-item");
 export const galleryItemsList = document.querySelector(".gallery-list");
-export const galleryItemPopup = document.querySelector(".popup_type_new-gallery-item");
+export const newItemPopupSelector = ".popup_type_new-gallery-item";
 export const formAddGalleryItem = document.querySelector(".form_type_new-gallery-item");
 export const initialCards = [
   {
@@ -50,5 +50,5 @@ export const initialCards = [
 ];
 
 //Prewiev variables
-export const previewPopupElement = document.querySelector(".popup_type_preview");
+export const previewPopupSelector = ".popup_type_preview";
 export const previewPopupCloseButton = document.querySelector(".popup__close-button-preview");
