@@ -1,10 +1,11 @@
+import "./index.css";
 import { FormValidator } from "../components/FormValidator.js";
 import { Card } from "../components/Card.js";
-import * as utils from "../utils/utils.js";
 import * as constant from "../utils/constants.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import UserInfo from "../components/UserInfo";
 
 const formProfileValidationConfig = {
   formSelector: ".form_type_profile",
@@ -26,10 +27,38 @@ const formNewCardValidationConfig = {
   fieldSelector: ".form__set-gallery",
 };
 
-const handleNewItemSubmit = () => {};
+const handleProfileEditWindow = () => {
+  const info = userInfo.getUserInfo();
+  constant.userInputName.value = info.userName;
+  constant.userInputProfession.value = info.userJob;
+  popupWithFormProfile.open();
+};
 
-const popupwithImage = new PopupWithImage(constant.previewPopupSelector);
-const popupWithFormProfile = new PopupWithForm(constant.popupProfileSelector, handleProfileSubmit);
+const handleNewItemWindow = () => {
+  popupWithFormImage.open();
+};
+
+const handleProfileFormSubmit = (event, userInput) => {
+  event.preventDefault();
+  userInfo.setUserInfo(userInput.name, userInput.about);
+  popupWithFormProfile.close();
+};
+
+const handleNewItemSubmit = (event, userInput) => {
+  event.preventDefault();
+  const newItem = {
+    name: userInput.newItemTitle,
+    link: userInput.newItemImageLink,
+  };
+
+  popupWithFormImage.close();
+
+  cardRenderer.addItem(newItem);
+};
+
+const userInfo = new UserInfo(constant.profileNameSelector, constant.profileProfessionSelector);
+const popupWithImage = new PopupWithImage(constant.previewPopupSelector);
+const popupWithFormProfile = new PopupWithForm(constant.popupProfileSelector, handleProfileFormSubmit);
 const popupWithFormImage = new PopupWithForm(constant.newItemPopupSelector, handleNewItemSubmit);
 
 const cardConfig = {
@@ -43,84 +72,38 @@ const cardConfig = {
   previewPopupImageSelector: ".popup__preview-image",
   previewPopupDescriptionSelector: ".popup__description",
   previewPopupElement: constant.previewPopupSelector,
-  handleCardImageClick: popupwithImage.open,
+  handleCardImageClick: (src, name, description) => {
+    popupWithImage.open(src, name, description);
+  },
 };
 
+//create form validatian instances to check form input fields
 const profileFormValidator = new FormValidator(formProfileValidationConfig);
 const newCardFormValidator = new FormValidator(formNewCardValidationConfig);
 
+/**
+ *
+ * @param {Object} cardItem object that contains name and link of new card
+ * @returns an card element
+ */
 const renderCard = (cardItem) => {
-  const card = new Card(card, cardConfig);
+  const card = new Card(cardItem, cardConfig);
   return card.getCard();
 };
 
-const initialCards = new Section({ items: constant.initialCards, renderer: renderCard }, constant.galleryItemsList);
-initialCards.renderer();
+//create instance of card renderer to add card to the page
+const cardRenderer = new Section({ items: constant.initialCards, renderer: renderCard }, constant.galleryItemsListSelector);
+cardRenderer.renderer();
 
-function createCard(card) {
-  const newCard = new Card(card, cardConfig);
-  return newCard.getCard();
-}
-export const fillProfileForm = () => {
-  constant.userInputName.value = constant.profileName.textContent;
-  constant.userInputProfession.value = constant.profileProfession.textContent;
-};
+//Set event Listeners to modal windows
+popupWithImage.setEventListeners();
+popupWithFormProfile.setEventListeners();
+popupWithFormImage.setEventListeners();
 
-const addNewItem = (event) => {
-  event.preventDefault();
-  resetFormAddGalleryItem();
-  utils.togglePopup(constant.galleryItemPopup);
-};
+//Add event Listeners to buttons
+constant.profileEditButton.addEventListener("click", handleProfileEditWindow);
+constant.addGalleryItemButton.addEventListener("click", handleNewItemWindow);
 
-const resetFormAddGalleryItem = () => {
-  constant.formAddGalleryItem.reset();
-  newCardFormValidator.resetValidation(constant.formAddGalleryItem);
-};
-
-const handleProfileFormSubmit = (event) => {
-  event.preventDefault();
-  constant.profileName.textContent = constant.userInputName.value;
-  constant.profileProfession.textContent = constant.userInputProfession.value;
-  utils.togglePopup(constant.popupProfile);
-};
-
-const submitNewGalleryItem = (event) => {
-  event.preventDefault();
-  const addedItem = {
-    name: constant.inputElementGalleryItemTitle.value,
-    link: constant.inputElementGalleryItemLink.value,
-  };
-  utils.togglePopup(constant.galleryItemPopup);
-
-  resetFormAddGalleryItem();
-
-  renderGalleryItem(addedItem);
-};
-
-const renderGalleryItem = (card) => {
-  constant.galleryItemsList.prepend(createCard(card));
-};
-
-const renderInitiateGallery = (galleryItems) => {
-  galleryItems.forEach(renderGalleryItem);
-};
-
-renderInitiateGallery(constant.initialCards);
-
-constant.profileEditButton.addEventListener("click", utils.openProfilePopup);
-constant.addGalleryItemButton.addEventListener("click", addNewItem);
-constant.formProfile.addEventListener("submit", handleProfileFormSubmit);
-constant.formAddGalleryItem.addEventListener("submit", submitNewGalleryItem);
-constant.popupCloseButtonProfile.addEventListener("click", () => {
-  utils.togglePopup(constant.popupProfile);
-});
-constant.addGalleryItemPopupCloseButton.addEventListener("click", () => {
-  utils.togglePopup(constant.galleryItemPopup);
-});
-constant.previewPopupCloseButton.addEventListener("click", () => {
-  utils.togglePopup(constant.previewPopupElement);
-});
-
-// //Enable validation for profile and new card fildsets
+// Enable vlidation to forms
 profileFormValidator.enableValidation();
 newCardFormValidator.enableValidation();
