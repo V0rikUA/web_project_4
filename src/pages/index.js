@@ -35,6 +35,7 @@ const handleProfileEditWindow = () => {
 };
 
 const handleNewItemWindow = () => {
+  newCardFormValidator.resetValidation();
   popupWithFormImage.open();
 };
 
