@@ -14,7 +14,7 @@ export default class Section {
   renderer() {
     if (this._items !== null) {
       try {
-        items.forEach((item) => {
+        this._items.forEach((item) => {
           this.addItem(item);
         });
       } catch (error) {
