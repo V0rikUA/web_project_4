@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./pages/index.css" />
     <title>Around The U.S.</title>
   </head>
   <body class="root">
@@ -92,7 +91,7 @@
     </div>
 
     <header class="header">
-      <img src="./images/logo.svg" alt="logo image with text 'Around the U.S.'" class="header__logo" />
+      <img src="<%=require('./images/logo.svg')%>" alt="logo image with text 'Around the U.S.'" class="header__logo" />
     </header>
     <main class="content">
       <section class="profile">
@@ -117,7 +116,7 @@
     <template id="gallary-list__item__template">
       <li class="gallery-list__item">
         <button type="button" class="button gallery-list__delete-button" aria-label="delete-button">
-          <img src="./images/Trash.svg" alt="an image of trash bin" />
+          <img src="<%=require(`./images/Trash.svg`)%>" alt="an image of trash bin" />
         </button>
         <img src=" " alt=" " class="gallery-list__image" />
         <div class="gallery-list__description-block">
@@ -126,10 +125,5 @@
         </div>
       </li>
     </template>
-    <script type="module" src="./scripts/index.js"></script>
-    <script type="module" src="./scripts/validate.js"></script>
-    <script type="module" src="./scripts/Card.js"></script>
-    <script type="module" src="./scripts/utils.js"></script>
-    <script type="module" src="./scripts/constants.js"></script>
   </body>
 </html>

@@ -16,11 +16,7 @@ export class Card {
     this._deleteButtonSelector = config.deleteButtonSelector;
     this._previewPopupImageSelector = config.previewPopupImageSelector;
     this._previewPopupDescriptionSelector = config.previewPopupDescriptionSelector;
-    this._togglePopup = config.togglePopup;
-    this._previewPopupElement = config.previewPopupElement;
-
-    this._previewPopupImage = document.querySelector(this._previewPopupImageSelector);
-    this._previewPopupDescription = document.querySelector(this._previewPopupDescriptionSelector);
+    this._handleCardImageClick = config.handleCardImageClick;
     this._cardTemplate = document.querySelector(this._cardTemplateSelector);
   }
 
@@ -45,13 +41,6 @@ export class Card {
     this._cardElement = null;
   }
 
-  _handleCardImageClick() {
-    this._previewPopupImage.src = this._link;
-    this._previewPopupImage.alt = this._name;
-    this._previewPopupDescription.textContent = this._name;
-    this._togglePopup(this._previewPopupElement);
-  }
-
   _setEventListeners() {
     this._likeButton = this._cardElement.querySelector(this._likeButtonSelector);
     this._likeButton.addEventListener("click", () => this._handleLikeButtonClick());
@@ -60,7 +49,9 @@ export class Card {
     deleteButton.addEventListener("click", () => this._handleDeleteButtonClick());
 
     const image = this._cardElement.querySelector(this._imageSelector);
-    image.addEventListener("click", () => this._handleCardImageClick());
+    image.addEventListener("click", () => {
+      this._handleCardImageClick(this._link, this._name, this._name);
+    });
   }
 
   /**
