@@ -1,21 +1,17 @@
 //credentialss variables
-export const profileEditButton = document.querySelector(".profile__button-edit");
-export const popupCloseButtonProfile = document.querySelector(".popup__close-button-profile");
-export const formProfile = document.querySelector(".form_type_profile");
-export const profileName = document.querySelector(".profile__name");
-export const profileProfession = document.querySelector(".profile__profession");
-export const popupProfileSelector = ".popup_type_profile";
-export const userInputName = document.querySelector(".form__input_type_name");
-export const userInputProfession = document.querySelector(".form__input_type_title");
+export const profileEditButton = document.querySelector(".profile__button-edit"); //
+export const profileNameSelector = ".profile__name"; //
+export const profileProfessionSelector = ".profile__profession"; //
+export const popupProfileSelector = ".popup_type_profile"; //
+export const userInputName = document.querySelector(".form__input_type_name"); //
+export const userInputProfession = document.querySelector(".form__input_type_title"); //
 
 //NewCard variables
-export const addGalleryItemButton = document.querySelector(".profile__button-add-contetnt");
-export const inputElementGalleryItemTitle = document.querySelector(".form__input_type_new-gallery-item-title");
-export const inputElementGalleryItemLink = document.querySelector(".form__input_type_new-gallery-item-img-link");
-export const addGalleryItemPopupCloseButton = document.querySelector(".popup__close-button-gallery-item");
-export const galleryItemsList = document.querySelector(".gallery-list");
-export const newItemPopupSelector = ".popup_type_new-gallery-item";
+export const addGalleryItemButton = document.querySelector(".profile__button-add-contetnt"); //
+export const galleryItemsListSelector = ".gallery-list"; //
+export const newItemPopupSelector = ".popup_type_new-gallery-item"; //
 export const formAddGalleryItem = document.querySelector(".form_type_new-gallery-item");
+
 export const initialCards = [
   {
     name: "Yosemite Valley",
@@ -49,6 +45,5 @@ export const initialCards = [
   },
 ];
 
-//Prewiev variables
-export const previewPopupSelector = ".popup_type_preview";
-export const previewPopupCloseButton = document.querySelector(".popup__close-button-preview");
+//Prewiev variable
+export const previewPopupSelector = ".popup_type_preview"; //
