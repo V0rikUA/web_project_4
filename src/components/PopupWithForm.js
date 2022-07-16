@@ -10,6 +10,8 @@ export default class PopupWithForm extends Popup {
     super(popupSelector);
     this._handleFormSubmit = handleFormSubmit;
     this._form = this._popupElement.querySelector("form");
+
+    this._handleSubmitButton = this._handleSubmitButton.bind(this);
   }
   /**
    *collects data from all the input fields and
@@ -23,13 +25,15 @@ export default class PopupWithForm extends Popup {
     );
   }
 
+  _handleSubmitButton(event) {
+    event.preventDefault();
+    const inputValues = this._getInputValues();
+    this._handleFormSubmit(inputValues);
+  }
+
   setEventListeners() {
     super.setEventListeners();
-    this._form.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const inputValues = this._getInputValues();
-      this._handleFormSubmit(inputValues);
-    });
+    this._form.addEventListener("submit", this._handleSubmitButton);
   }
 
   /**
@@ -37,6 +41,7 @@ export default class PopupWithForm extends Popup {
    */
   close() {
     super.close();
-    this._form.reset();
+    this._form.removeEventListener("submit", this._handleSubmitButton);
+    setTimeout(() => this._form.reset(), 700);
   }
 }
