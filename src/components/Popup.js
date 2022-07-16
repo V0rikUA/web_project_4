@@ -10,6 +10,7 @@ export default class Popup {
 
     this._handleEscClose = this._handleEscClose.bind(this);
     this._handleBackgroundClickClose = this._handleBackgroundClickClose.bind(this);
+    this.close = this.close.bind(this);
   }
 
   /**
@@ -25,8 +26,7 @@ export default class Popup {
    */
   close() {
     this._popupElement.classList.remove(this._popupActiveToggleSelector);
-    document.removeEventListener(`keydown`, this._handleEscClose);
-    this._popupElement.removeEventListener("mousedown", this._handleBackgroundClickClose);
+    this.removeEventListeners();
   }
 
   /**
@@ -52,8 +52,13 @@ export default class Popup {
    * set event listeners to close button click, close on Esc down and when mousedown outside the modal window
    */
   setEventListeners() {
-    this._popupCloseButton.addEventListener("click", this.close.bind(this));
-    document.addEventListener("keydown", this._handleEscClose.bind(this));
-    this._popupElement.addEventListener("mousedown", this._handleBackgroundClickClose.bind(this));
+    this._popupCloseButton.addEventListener("click", this.close);
+    document.addEventListener("keydown", this._handleEscClose);
+    this._popupElement.addEventListener("mousedown", this._handleBackgroundClickClose);
+  }
+
+  removeEventListeners() {
+    document.removeEventListener(`keydown`, this._handleEscClose);
+    this._popupElement.removeEventListener("mousedown", this._handleBackgroundClickClose);
   }
 }
