@@ -27,10 +27,15 @@ const formNewCardValidationConfig = {
   fieldSelector: ".form__set-gallery",
 };
 
-const handleProfileEditWindow = () => {
-  const info = userInfo.getUserInfo();
+const fillProfileInfo = (info) => {
   constant.userInputName.value = info.userName;
   constant.userInputProfession.value = info.userJob;
+};
+
+const handleProfileEditWindow = () => {
+  const info = userInfo.getUserInfo();
+  fillProfileInfo(info);
+
   popupWithFormProfile.open();
 };
 
@@ -39,14 +44,12 @@ const handleNewItemWindow = () => {
   popupWithFormImage.open();
 };
 
-const handleProfileFormSubmit = (event, userInput) => {
-  event.preventDefault();
+const handleProfileFormSubmit = (userInput) => {
   userInfo.setUserInfo(userInput.name, userInput.about);
   popupWithFormProfile.close();
 };
 
-const handleNewItemSubmit = (event, userInput) => {
-  event.preventDefault();
+const handleNewItemSubmit = (userInput) => {
   const newItem = {
     name: userInput.newItemTitle,
     link: userInput.newItemImageLink,
