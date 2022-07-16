@@ -99,11 +99,6 @@ const renderCard = (cardItem) => {
 const cardRenderer = new Section({ items: constant.initialCards, renderer: renderCard }, constant.galleryItemsListSelector);
 cardRenderer.renderer();
 
-//Set event Listeners to modal windows
-popupWithImage.setEventListeners();
-popupWithFormProfile.setEventListeners();
-popupWithFormImage.setEventListeners();
-
 //Add event Listeners to buttons
 constant.profileEditButton.addEventListener("click", handleProfileEditWindow);
 constant.addGalleryItemButton.addEventListener("click", handleNewItemWindow);
