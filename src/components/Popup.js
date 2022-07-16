@@ -57,8 +57,12 @@ export default class Popup {
     this._popupElement.addEventListener("mousedown", this._handleBackgroundClickClose);
   }
 
+  /**
+   * remove all event listeners
+   */
   removeEventListeners() {
-    document.removeEventListener(`keydown`, this._handleEscClose);
+    this._popupCloseButton.removeEventListener("click", this.close);
+    document.removeEventListener("keydown", this._handleEscClose);
     this._popupElement.removeEventListener("mousedown", this._handleBackgroundClickClose);
   }
 }
