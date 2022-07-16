@@ -42,6 +42,7 @@ export default class PopupWithForm extends Popup {
   close() {
     super.close();
     this._form.removeEventListener("submit", this._handleSubmitButton);
-    setTimeout(() => this._form.reset(), 700);
+    const restOnTimer = setTimeout(() => this._form.reset(), 700);
+    clearTimeout(restOnTimer);
   }
 }
