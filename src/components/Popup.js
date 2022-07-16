@@ -17,6 +17,7 @@ export default class Popup {
    */
   open() {
     this._popupElement.classList.add(this._popupActiveToggleSelector);
+    this.setEventListeners();
   }
 
   /**
