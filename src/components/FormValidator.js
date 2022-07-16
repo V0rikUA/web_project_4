@@ -10,6 +10,9 @@ export class FormValidator {
 
     this._formElement = document.querySelector(this._formSelector);
     this._fieldsetElement = this._formElement.querySelector(this._fieldSelector);
+
+    this._inputList = [...this._formElement.querySelectorAll(this._inputSelector)];
+    this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
   }
 
   _showInputError(formElement, inputElement, errorMessage) {
@@ -40,33 +43,27 @@ export class FormValidator {
     });
   }
 
-  _toggleButtonState(inputList, buttonElement) {
-    if (this._hasInvalidInput(inputList)) {
-      buttonElement.classList.add(this._inactiveButtonClass);
+  _toggleButtonState() {
+    if (this._hasInvalidInput(this._inputList)) {
+      this._buttonElement.classList.add(this._inactiveButtonClass);
     } else {
-      buttonElement.classList.remove(this._inactiveButtonClass);
+      this._buttonElement.classList.remove(this._inactiveButtonClass);
     }
   }
 
   _setEventListeners() {
-    const inputList = [...this._fieldsetElement.querySelectorAll(this._inputSelector)];
-    const buttonElement = this._fieldsetElement.querySelector(this._submitButtonSelector);
-
-    inputList.forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         this._checkInputValidity(this._fieldsetElement, inputElement);
-        this._toggleButtonState(inputList, buttonElement);
+        this._toggleButtonState(this._inputList, this._buttonElement);
       });
     });
   }
 
-  resetValidation(formElement) {
-    const inputList = [...this._formElement.querySelectorAll(this._inputSelector)];
-    const buttonElement = this._formElement.querySelector(this._submitButtonSelector);
-
-    inputList.forEach((inputElement) => {
+  resetValidation() {
+    this._inputList.forEach((inputElement) => {
       this._hideInputError(this._formElement, inputElement);
-      this._toggleButtonState(inputList, buttonElement);
+      this._toggleButtonState(this._inputList, this._buttonElement);
     });
   }
 
