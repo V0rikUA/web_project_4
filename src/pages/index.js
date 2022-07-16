@@ -36,6 +36,7 @@ const handleProfileEditWindow = () => {
   const info = userInfo.getUserInfo();
   fillProfileInfo(info);
 
+  profileFormValidator.resetValidation();
   popupWithFormProfile.open();
 };
 
