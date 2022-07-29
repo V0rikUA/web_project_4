@@ -9,7 +9,11 @@
   <body class="root">
     <div class="popup popup_type_profile">
       <div class="popup__window">
-        <button type="button" class="button popup__close-button popup__close-button-profile" aria-label="close"></button>
+        <button
+          type="button"
+          class="button popup__close-button popup__close-button-profile"
+          aria-label="close"
+        ></button>
         <h2 class="popup__title">Edit profile</h2>
         <form class="form form_type_profile" name="profileEditForm" novalidate>
           <fieldset class="form__set form__set-profile">
@@ -39,7 +43,12 @@
               />
               <span class="form__placeholder about-input-error"></span>
             </label>
-            <button type="submit" class="button form__submit-button form__submit-button_profile">Save</button>
+            <button
+              type="submit"
+              class="button form__submit-button form__submit-button_profile"
+            >
+              Save
+            </button>
           </fieldset>
         </form>
       </div>
@@ -47,9 +56,17 @@
 
     <div class="popup popup_type_new-gallery-item">
       <div class="popup__window">
-        <button type="button" class="button popup__close-button popup__close-button-gallery-item" aria-label="close"></button>
+        <button
+          type="button"
+          class="button popup__close-button popup__close-button-gallery-item"
+          aria-label="close"
+        ></button>
         <h2 class="popup__title">New place</h2>
-        <form class="form form_type_new-gallery-item" name="newGalleryItemForm" novalidate>
+        <form
+          class="form form_type_new-gallery-item"
+          name="newGalleryItemForm"
+          novalidate
+        >
           <fieldset class="form__set form__set-gallery">
             <label class="form__field">
               <input
@@ -74,9 +91,16 @@
                 required
                 minlength="1"
               />
-              <span class="form__input-error newItemImageLink-input-error"></span>
+              <span
+                class="form__input-error newItemImageLink-input-error"
+              ></span>
             </label>
-            <button type="submit" class="button form__submit-button form__submit-button_new-gallery-item">Create</button>
+            <button
+              type="submit"
+              class="button form__submit-button form__submit-button_new-gallery-item"
+            >
+              Create
+            </button>
           </fieldset>
         </form>
       </div>
@@ -84,7 +108,11 @@
 
     <div class="popup popup_type_preview">
       <div class="popup__window popup__window_preview">
-        <button type="button" class="button popup__close-button popup__close-button-preview" aria-label="close"></button>
+        <button
+          type="button"
+          class="button popup__close-button popup__close-button-preview"
+          aria-label="close"
+        ></button>
         <img src=" " alt="preview image" class="popup__preview-image" />
         <p class="popup__description"></p>
       </div>
@@ -92,7 +120,11 @@
 
     <div class="popup popup_type_delete-card">
       <div class="popup__window popup__window_delete-card">
-        <button type="button" class="button popup__close-button popup__close-button-delete-card" aria-label="close"></button>
+        <button
+          type="button"
+          class="button popup__close-button popup__close-button-delete-card"
+          aria-label="close"
+        ></button>
         <h2 class="popup__title">Are you sure</h2>
         <button type="button" class="button popup__delete-card">Yes</button>
       </div>
@@ -101,16 +133,40 @@
     <div class="popup">
       <div class="popup__window">
         <button class="button" aria-label="close"></button>
-        <form form class="form form_type_change-avtar" name="changeAvatarForm" novalidate>
-          <fieldset form__set>
-            <label for=""></label>
+        <form
+          class="form form_type_change-avtar"
+          name="changeAvatarForm"
+          novalidate
+        >
+          <fieldset class="form__set form__set-avatar">
+            <label class="form__field">
+              <input
+                type="url"
+                class="form__input"
+                name="avatar"
+                placeholder="Avatar URL"
+                id="avatar-input"
+                required
+                minlength="1"
+              />
+            </label>
+            <button
+              type="submit"
+              class="button form__submit-button form__submit-button_change-avatar"
+            >
+              Change
+            </button>
           </fieldset>
         </form>
       </div>
     </div>
 
     <header class="header">
-      <img src="<%=require('./images/logo.svg')%>" alt="logo image with text 'Around the U.S.'" class="header__logo" />
+      <img
+        src="<%=require('./images/logo.svg')%>"
+        alt="logo image with text 'Around the U.S.'"
+        class="header__logo"
+      />
     </header>
     <main class="content">
       <section class="profile">
@@ -118,11 +174,19 @@
         <div class="profile__info">
           <div class="profile__name-wrapper">
             <h1 class="profile__name">Jacques Cousteau</h1>
-            <button type="button" class="button profile__button-edit" aria-label="edit"></button>
+            <button
+              type="button"
+              class="button profile__button-edit"
+              aria-label="edit"
+            ></button>
           </div>
           <p class="profile__profession">Explorer</p>
         </div>
-        <button type="button" class="button profile__button-add-contetnt" aria-label="add"></button>
+        <button
+          type="button"
+          class="button profile__button-add-contetnt"
+          aria-label="add"
+        ></button>
       </section>
 
       <section class="gallery">
@@ -134,13 +198,24 @@
     </footer>
     <template id="gallary-list__item__template">
       <li class="gallery-list__item">
-        <button type="button" class="button gallery-list__delete-button" aria-label="delete-button">
-          <img src="<%=require(`./images/Trash.svg`)%>" alt="an image of trash bin" />
+        <button
+          type="button"
+          class="button gallery-list__delete-button"
+          aria-label="delete-button"
+        >
+          <img
+            src="<%=require(`./images/Trash.svg`)%>"
+            alt="an image of trash bin"
+          />
         </button>
         <img src=" " alt=" " class="gallery-list__image" />
         <div class="gallery-list__description-block">
           <h2 class="gallery-list__image-description"></h2>
-          <button type="button" class="button gallery-list__like-button" arial-label="like-button"></button>
+          <button
+            type="button"
+            class="button gallery-list__like-button"
+            arial-label="like-button"
+          ></button>
         </div>
       </li>
     </template>
