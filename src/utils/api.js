@@ -40,13 +40,13 @@ class Api {
    * @param {String} urlPath path to user data
    * @returns {Object} an object that contains user info
    */
-  getUserInfo(urlPath) {
+  getUserInfo(urlPath = "/users/me") {
     return fetch(this._url + urlPath, {
       headers: this._headers,
     }).then((res) => this._checkStatus(res));
   }
 
-  editProfile(urlPath, name, about) {
+  editProfile(urlPath = "/users/me", name, about) {
     return fetch(this._url + urlPath, {
       method: "PATCH",
       headers: this._headers,
@@ -54,7 +54,7 @@ class Api {
     }).then((res) => this._checkStatus(res));
   }
 
-  editAvatar(urlPath, avatar) {
+  editAvatar(urlPath = "/users/me", avatar) {
     return fetch(this._url + urlPath, {
       method: "PATCH",
       headers: this._headers,
@@ -62,13 +62,13 @@ class Api {
     }).then(this._checkStatus);
   }
 
-  getInitCard(urlPath) {
+  getInitCard(urlPath = "/cards") {
     fetch(this._url + urlPath, {
       headers: this._headers,
     }).then(this._checkStatus);
   }
 
-  addCard(urlPath, name, link) {
+  addCard(urlPath = "/cards", name, link) {
     fetch(this._url + urlPath, {
       method: "POST",
       headers: this._headers,
@@ -79,21 +79,21 @@ class Api {
     });
   }
 
-  deleteCard(urlPath, id) {
+  deleteCard(urlPath = "/cards", id) {
     fetch(this._url + urlPath + id, {
       method: "DELETE",
       headers: this._headers,
     }).then(this._checkStatus);
   }
 
-  removeLike(urlPath, id) {
+  removeLike(urlPath = "/cards", id) {
     fetch(this._url + urlPath + id, {
       method: "DELETE",
       headers: this._headers,
     }).then(this._checkStatus);
   }
 
-  addLike(urlPath, id) {
+  addLike(urlPath = "/cards", id) {
     fetch(this._url + urlPath + id, {
       method: "PUT",
       headers: this._headers,
