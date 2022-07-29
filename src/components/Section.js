@@ -11,7 +11,7 @@ export default class Section {
     this._container = document.querySelector(containerSelector);
   }
 
-  renderer() {
+  renderItems() {
     if (this._items !== null) {
       try {
         this._items.forEach((item) => {
