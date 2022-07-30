@@ -1,4 +1,29 @@
 .popup__button_delete-card {
   margin: 36px;
   min-width: 358px;
+  padding: 0;
+  border: none;
+  border-radius: 2px;
+  background-color: #000;
+  color: #fff;
+  box-sizing: border-box;
+  min-height: 50px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.22;
+  cursor: pointer;
+  transition: opacity 0.4s;
+}
+
+.popup__button_delete-card:hover {
+  opacity: 80%;
+}
+
+@media screen and (max-width: 425px) {
+  .popup__button_delete-card {
+    margin-top: 46px;
+    font-size: 14px;
+    line-height: 1.21;
+    min-height: 46px;
+  }
 }
