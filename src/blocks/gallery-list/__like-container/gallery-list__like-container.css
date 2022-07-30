@@ -1,0 +1,11 @@
+.gallery-list__like-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 37px;
+  height: 100%;
+  max-width: 21px;
+  width: 100%;
+  align-content: center;
+}

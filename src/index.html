@@ -54,6 +54,10 @@
       </div>
     </div>
 
+    <div class="popup popup__loading popup_active">
+      <div class="popup__loading-animation"></div>
+    </div>
+
     <div class="popup popup_type_new-gallery-item">
       <div class="popup__window">
         <button
@@ -126,15 +130,24 @@
           aria-label="close"
         ></button>
         <h2 class="popup__title">Are you sure</h2>
-        <button type="button" class="button popup__delete-card">Yes</button>
+        <button
+          type="button"
+          class="button form__submit-button popup__button_delete-card"
+        >
+          Yes
+        </button>
       </div>
     </div>
 
-    <div class="popup">
+    <div class="popup popup_type_change-avatar">
       <div class="popup__window">
-        <button class="button" aria-label="close"></button>
+        <button
+          class="button popup__close-button popup__close-button-avatar"
+          aria-label="close"
+        ></button>
+        <h2 class="popup__title">Change profile picture</h2>
         <form
-          class="form form_type_change-avtar"
+          class="form form_type_change-avatar"
           name="changeAvatarForm"
           novalidate
         >
@@ -149,6 +162,7 @@
                 required
                 minlength="1"
               />
+              <span class="form__input-error avatar-input-error"></span>
             </label>
             <button
               type="submit"
@@ -170,17 +184,17 @@
     </header>
     <main class="content">
       <section class="profile">
-        <div class="profile__avatar"></div>
+        <div class="profile__avatar" id="profileAvatar"></div>
         <div class="profile__info">
           <div class="profile__name-wrapper">
-            <h1 class="profile__name">Jacques Cousteau</h1>
+            <h1 class="profile__name"></h1>
             <button
               type="button"
               class="button profile__button-edit"
               aria-label="edit"
             ></button>
           </div>
-          <p class="profile__profession">Explorer</p>
+          <p class="profile__profession"></p>
         </div>
         <button
           type="button"
@@ -196,6 +210,7 @@
     <footer class="footer">
       <p class="footer__copyright">© 2021 Around The U.S.</p>
     </footer>
+
     <template id="gallary-list__item__template">
       <li class="gallery-list__item">
         <button
@@ -211,11 +226,14 @@
         <img src=" " alt=" " class="gallery-list__image" />
         <div class="gallery-list__description-block">
           <h2 class="gallery-list__image-description"></h2>
-          <button
-            type="button"
-            class="button gallery-list__like-button"
-            arial-label="like-button"
-          ></button>
+          <div class="gallery-list__like-container">
+            <button
+              type="button"
+              class="button gallery-list__like-button"
+              arial-label="like-button"
+            ></button>
+            <label class="gallery-list__like-counter">0</label>
+          </div>
         </div>
       </li>
     </template>

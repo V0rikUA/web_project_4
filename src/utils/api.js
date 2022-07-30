@@ -31,7 +31,7 @@ class Api {
   //   }
   // }
 
-  _checkStatus(response) {
+  _checkResponse(response) {
     return response.ok ? response.json() : Promise.reject(response.StatusText);
   }
 
@@ -40,64 +40,66 @@ class Api {
    * @param {String} urlPath path to user data
    * @returns {Object} an object that contains user info
    */
-  getUserInfo(urlPath) {
+  getUserInfo(urlPath = "/users/me") {
     return fetch(this._url + urlPath, {
+      method: "GET",
       headers: this._headers,
-    }).then((res) => this._checkStatus(res));
+    }).then((res) => this._checkResponse(res));
   }
 
-  editProfile(urlPath, name, about) {
-    return fetch(this._url + urlPath, {
-      method: "PATCH",
-      headers: this._headers,
-      body: JSON.stringify(name, about),
-    }).then((res) => this._checkStatus(res));
-  }
-
-  editAvatar(urlPath, avatar) {
+  editProfile(name, about, urlPath = "/users/me") {
     return fetch(this._url + urlPath, {
       method: "PATCH",
       headers: this._headers,
-      body: JSON.stringify(avatar),
-    }).then(this._checkStatus);
+      body: JSON.stringify({ name, about }),
+    }).then((res) => this._checkResponse(res));
   }
 
-  getInitCard(urlPath) {
-    fetch(this._url + urlPath, {
+  editAvatar(avatar, urlPath = "/users/me/avatar") {
+    return fetch(this._url + urlPath, {
+      method: "PATCH",
       headers: this._headers,
-    }).then(this._checkStatus);
+      body: JSON.stringify({ avatar }),
+    }).then(this._checkResponse);
   }
 
-  addCard(urlPath, name, link) {
-    fetch(this._url + urlPath, {
+  getInitCard(urlPath = "/cards") {
+    return fetch(this._url + urlPath, {
+      method: "GET",
+      headers: this._headers,
+    }).then((res) => this._checkResponse(res));
+  }
+
+  addCard(name, link, urlPath = "/cards") {
+    return fetch(this._url + urlPath, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
         name,
         link,
       }),
-    });
+    }).then((res) => this._checkResponse(res));
   }
 
-  deleteCard(urlPath, id) {
-    fetch(this._url + urlPath + id, {
+  deleteCard(id, urlPath = "/cards/") {
+    return fetch(this._url + urlPath + id, {
       method: "DELETE",
       headers: this._headers,
-    }).then(this._checkStatus);
+    }).then((res) => this._checkResponse(res));
   }
 
-  removeLike(urlPath, id) {
-    fetch(this._url + urlPath + id, {
+  removeLike(id, urlPath = "/cards/likes/") {
+    return fetch(this._url + urlPath + id, {
       method: "DELETE",
       headers: this._headers,
-    }).then(this._checkStatus);
+    }).then((res) => this._checkResponse(res));
   }
 
-  addLike(urlPath, id) {
-    fetch(this._url + urlPath + id, {
+  addLike(id, urlPath = "/cards/likes/") {
+    return fetch(this._url + urlPath + id, {
       method: "PUT",
       headers: this._headers,
-    }).then(this._checkStatus);
+    }).then((res) => this._checkResponse(res));
   }
 }
 
