@@ -34,6 +34,7 @@
 @import url(../blocks/form/__set/form__set.css);
 @import url(../blocks/form/__placeholder/form__placeholder.css);
 @import url(../blocks/form/__field/form__field.css);
+@import url(../blocks/popup/__loading/popup__loading-animation.css);
 
 /*                HEADER BLOCK                    */
 @import url(../blocks/header/__logo/header__logo.css);
