@@ -28,6 +28,12 @@ export class Card {
     this._cardTemplate = document.querySelector(this._cardTemplateSelector);
     this._handleDeleteServerRequest = config.handleDeleteServerRequest;
     this._handleLikeServerRequest = config.handleLikeServerRequest;
+    this._handleDleteClick = config.handleDleteClick;
+    this._popupDeleteButtonElement = document.querySelector(
+      config.popupDeleteConfirmationButtonSelector
+    );
+    this._handleDeleteConfirmationSubmit =
+      config.handleDeleteConfirmationSubmit;
   }
 
   //                                Like Handler
@@ -68,9 +74,17 @@ export class Card {
   //                                Delete handler
   //
   _handleDeleteButtonClick() {
+    this._handleDleteClick();
+    this._popupDeleteButtonElement.addEventListener("click", () => {
+      this._handleConfirmedDeleteClick();
+    });
+  }
+  _handleConfirmedDeleteClick() {
     this._removeCardLocal();
     this._handleDeleteServerRequest(this._cardId);
+    this._handleDeleteConfirmationSubmit();
   }
+
   _removeCardLocal() {
     this._cardElement.remove();
     this._cardElement = null;
