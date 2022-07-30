@@ -1,0 +1,7 @@
+/**
+   * @file VerbalExpressions JavaScript Library
+   * @version 0.3.0
+   * @license MIT
+   *
+   * @see https://github.com/VerbalExpressions/JSVerbalExpressions
+   */
