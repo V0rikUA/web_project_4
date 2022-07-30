@@ -24,6 +24,7 @@ export const newItemPopupSelector = ".popup_type_new-gallery-item"; //
 export const formAddGalleryItem = document.querySelector(
   ".form_type_new-gallery-item"
 );
+export const popupDeleteConfirmationSelector = ".popup_type_delete-card";
 
 export const initialCards = [
   {
