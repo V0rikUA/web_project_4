@@ -88,14 +88,14 @@ class Api {
     }).then((res) => this._checkResponse(res));
   }
 
-  removeLike(id, urlPath = "/cards/") {
+  removeLike(id, urlPath = "/cards/likes/") {
     return fetch(this._url + urlPath + id, {
       method: "DELETE",
       headers: this._headers,
     }).then((res) => this._checkResponse(res));
   }
 
-  addLike(id, urlPath = "/cards/") {
+  addLike(id, urlPath = "/cards/likes/") {
     return fetch(this._url + urlPath + id, {
       method: "PUT",
       headers: this._headers,
