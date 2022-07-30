@@ -92,9 +92,8 @@ export class Card {
   }
 
   /**
-   * return an card element
+   * @return an card element fiiled up with data
    */
-
   getCard() {
     this._cardElement = this._getCardElement();
     this._populateCardInfo();
