@@ -63,7 +63,7 @@ export const initialCards = [
 export const previewPopupSelector = ".popup_type_preview";
 
 //loading animation
-export const loadingPopup = document.querySelector(".popup__loading");
+export const loadingPopup = document.querySelector(".popup_type_loading");
 
 //configs
 export const formValidationConfig = {

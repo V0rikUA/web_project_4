@@ -54,11 +54,11 @@
 @import url(../blocks/gallery-list/__image/gallery-list__image.css);
 @import url(../blocks/gallery-list/__description-block/gallery-list__description-block.css);
 @import url(../blocks/gallery-list/__image-description/gallery-list__image-description.css);
-@import url(../blocks/gallery-list/__like-button/gallery-list__like-button.css);
+@import url(../blocks/gallery-list/__like-button/gallery-list__like-container_button.css);
 @import url(../blocks/gallery-list/__delete-button/gallery-list__delete-button.css);
 @import url(../blocks/gallery-list/__like-button/gallery-list__like-button-active.css);
 @import url(../blocks/gallery-list/__like-container/gallery-list__like-container.css);
-@import url(../blocks/gallery-list/__like-counter/gallery-list__like-counter.css);
+@import url(../blocks/gallery-list/__like-container/_counter/gallery-list__like-container_counter.css);
 
 /*                FOOTER BLOCK                      */
 @import url(../blocks/footer/__copyright/footer__copyright.css);
