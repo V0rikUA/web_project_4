@@ -1,4 +1,4 @@
-.popup__button_delete-card {
+.popup__delete-card-button {
   margin: 36px;
   min-width: 358px;
   padding: 0;
@@ -15,12 +15,12 @@
   transition: opacity 0.4s;
 }
 
-.popup__button_delete-card:hover {
+.popup__delete-card-button:hover {
   opacity: 80%;
 }
 
 @media screen and (max-width: 425px) {
-  .popup__button_delete-card {
+  .popup__delete-card-button {
     margin-top: 46px;
     font-size: 14px;
     line-height: 1.21;
