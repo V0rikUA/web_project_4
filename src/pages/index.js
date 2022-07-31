@@ -24,7 +24,7 @@ const cardConfig = {
   deleteButtonSelector: ".gallery-list__delete-button",
   previewPopupImageSelector: ".popup__preview-image",
   previewPopupDescriptionSelector: ".popup__description",
-  popupDeleteConfirmationButtonSelector: ".popup__delete-card-buttoon",
+  popupDeleteConfirmationButtonSelector: ".popup__delete-card-button",
   previewPopupElement: constant.previewPopupSelector,
   handleCardImageClick: (src, name, description) => {
     popupWithImage.open(src, name, description);
