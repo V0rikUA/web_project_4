@@ -1,6 +1,4 @@
 .popup__delete-card-button {
-  margin: 36px;
-  max-width: 358px;
   width: 100%;
   padding: 0;
   border: none;
@@ -22,8 +20,6 @@
 
 @media screen and (max-width: 425px) {
   .popup__delete-card-button {
-    margin: 46px 22px 22px;
-    max-width: 240px;
     font-size: 14px;
     line-height: 1.21;
     min-height: 46px;

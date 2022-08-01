@@ -7,41 +7,8 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import { api } from "../utils/api.js";
-import Popup from "../components/Popup";
 
-//
-//                                  Variables
-//
-
-const cardConfig = {
-  cardTemplateSelector: "#gallary-list__item__template",
-  cardSelector: ".gallery-list__item",
-  imageSelector: ".gallery-list__image",
-  imageDescriptionSelector: ".gallery-list__image-description",
-  likeActiveSelector: "gallery-list__like-button-active",
-  likeButtonSelector: ".gallery-list__like-container_button",
-  likeCounterSelector: ".gallery-list__like-container_counter",
-  deleteButtonSelector: ".gallery-list__delete-button",
-  previewPopupImageSelector: ".popup__preview-image",
-  previewPopupDescriptionSelector: ".popup__description",
-  popupDeleteConfirmationButtonSelector: ".popup__delete-card-button",
-  previewPopupElement: constant.previewPopupSelector,
-  handleCardImageClick: (src, name, description) => {
-    popupWithImage.open(src, name, description);
-  },
-  handleDeleteServerRequest: (cardId) => {
-    handleDeleteServerRequest(cardId);
-  },
-  handleLikeServerRequest: (card) => {
-    handleLikeServerRequest(card);
-  },
-  handleDleteClick: () => {
-    popupDeleteConfirmation.open();
-  },
-  handleDeleteConfirmationSubmit: () => {
-    popupDeleteConfirmation.close();
-  },
-};
+let userId;
 
 //
 //                                  Functions
@@ -53,7 +20,7 @@ function disableLoading() {
 
 Promise.all([api.getUserInfo(), api.getInitCard()])
   .then(([userData, cards]) => {
-    cardConfig.userId = userData._id;
+    userId = userData._id;
     userInfo.setUserInfo(userData.name, userData.about);
     userInfo.setUserAvatar(userData.avatar);
     cardRenderer.renderItems(cards);
@@ -69,7 +36,6 @@ Promise.all([api.getUserInfo(), api.getInitCard()])
 const renderDefaultPage = () => {
   userInfo.setUserInfo("Jacques Cousteau", "Explorer");
   userInfo.setUserAvatar("../images/profile_avatar.png");
-  cardRenderer.renderItems(constant.initialCards);
 };
 
 const fillProfileInfo = (info) => {
@@ -85,22 +51,20 @@ const handleProfileEditWindow = () => {
   popupWithFormProfile.open();
 };
 
-const handleDeleteServerRequest = (cardId) => {
-  api.deleteCard(cardId).catch(console.log);
-};
-
-function handleLikeServerRequest(card) {
+function handleLikeButtonClick(card) {
   card.isLiked()
     ? api
         .removeLike(card.getCardId())
         .then((res) => {
           card.setLikes(res.likes);
+          card.toggleLikeButton();
         })
         .catch(console.log)
     : api
         .addLike(card.getCardId())
         .then((res) => {
           card.setLikes(res.likes);
+          card.toggleLikeButton();
         })
         .catch(console.log);
 }
@@ -110,7 +74,10 @@ const handleNewItemWindow = () => {
   popupWithFormImage.open();
 };
 
-const handleProfileFormSubmit = (userInput) => {
+const handleProfileFormSubmit = (event) => {
+  event.preventDefault();
+  const userInput = popupWithFormProfile.getInputValues();
+
   const submitButtonProfile = document.querySelector(
     ".form__submit-button_profile"
   );
@@ -131,7 +98,9 @@ const handleProfileFormSubmit = (userInput) => {
     });
 };
 
-const handleChangeAvatarSubmit = (userInput) => {
+const handleChangeAvatarSubmit = (event) => {
+  event.preventDefault();
+  const userInput = popupWithAvatarForm.getInputValues();
   const submitButtonAvatar = document.querySelector(
     ".form__submit-button_change-avatar"
   );
@@ -149,7 +118,9 @@ const handleChangeAvatarSubmit = (userInput) => {
     });
 };
 
-const handleNewItemSubmit = (userInput) => {
+const handleNewItemSubmit = (event) => {
+  event.preventDefault();
+  const userInput = popupWithFormImage.getInputValues();
   const newItemSubmitButton = document.querySelector(
     ".form__submit-button_new-gallery-item"
   );
@@ -168,6 +139,22 @@ const handleNewItemSubmit = (userInput) => {
     });
 };
 
+const handleDeleteButtonClick = (card) => {
+  popupDeleteConfirmation.changeSubmitHandler((event) => {
+    event.preventDefault();
+    api
+      .deleteCard(card.getCardId())
+      .then(() => {
+        card.removeCard();
+      })
+      .catch(console.log)
+      .finally(() => {
+        popupDeleteConfirmation.close();
+      });
+  });
+  popupDeleteConfirmation.open();
+};
+
 const handleProfileAvatrWindow = () => {
   pofileAvatarFormValidation.resetValidation();
   popupWithAvatarForm.open();
@@ -179,13 +166,47 @@ const handleProfileAvatrWindow = () => {
  * @returns an card element
  */
 const renderCard = (cardItem) => {
-  const card = new Card(cardItem, cardConfig);
+  const card = new Card(cardItem, constant.cardTemplateSelector, userId);
+  card.createCard();
+  card.setLikes(cardItem.likes);
+  if (card.isLiked()) {
+    card.toggleLikeButton();
+  }
+  card.setEventListeners({
+    handleLikeButtonClick: () => {
+      handleLikeButtonClick(card);
+    },
+    handleDeleteButtonClick: () => {
+      handleDeleteButtonClick(card);
+    },
+    handleCardImageClick: () =>
+      popupWithImage.open(cardItem.link, cardItem.name, cardItem.name),
+  });
   return card.getCard();
 };
 
 //
 //                                  New instances
 //
+//create form validatian instances to check form input fields
+const profileFormValidator = new FormValidator(
+  constant.profileFormSelector,
+  constant.formValidationConfig
+);
+const newCardFormValidator = new FormValidator(
+  constant.newItemFormSelector,
+  constant.formValidationConfig
+);
+const pofileAvatarFormValidation = new FormValidator(
+  constant.avatarFormSelector,
+  constant.formValidationConfig
+);
+
+//create instance of card renderer to add card to the page
+const cardRenderer = new Section(
+  { renderer: renderCard },
+  constant.galleryItemsListSelector
+);
 
 const userInfo = new UserInfo(
   constant.profileNameSelector,
@@ -206,28 +227,9 @@ const popupWithAvatarForm = new PopupWithForm(
   handleChangeAvatarSubmit
 );
 
-const popupDeleteConfirmation = new Popup(
-  constant.popupDeleteConfirmationSelector
-);
-
-//create form validatian instances to check form input fields
-const profileFormValidator = new FormValidator(
-  constant.profileFormSelector,
-  constant.formValidationConfig
-);
-const newCardFormValidator = new FormValidator(
-  constant.newItemFormSelector,
-  constant.formValidationConfig
-);
-const pofileAvatarFormValidation = new FormValidator(
-  constant.avatarFormSelector,
-  constant.formValidationConfig
-);
-
-//create instance of card renderer to add card to the page
-const cardRenderer = new Section(
-  { renderer: renderCard },
-  constant.galleryItemsListSelector
+const popupDeleteConfirmation = new PopupWithForm(
+  constant.popupDeleteConfirmationSelector,
+  handleDeleteButtonClick
 );
 
 //Add event Listeners to buttons
