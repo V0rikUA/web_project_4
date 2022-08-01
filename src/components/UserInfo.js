@@ -11,9 +11,9 @@ export default class UserInfo {
    */
   getUserInfo() {
     return {
-      userName: this._userNameElement.textContent,
-      userJob: this._userProfessionElement.textContent,
-      userAvatar: this._userAvatar.style.backgroundImage,
+      name: this._userNameElement.textContent,
+      about: this._userProfessionElement.textContent,
+      avatar: this._userAvatar.style.backgroundImage,
     };
   }
 

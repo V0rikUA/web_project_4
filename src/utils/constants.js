@@ -7,10 +7,7 @@ export const profileProfessionSelector = ".profile__profession"; //
 export const profileAvatarSelector = ".profile__avatar";
 export const popupAvatarChangeSelector = ".popup_type_change-avatar";
 export const popupProfileSelector = ".popup_type_profile"; //
-export const userInputName = document.querySelector(".form__input_type_name"); //
-export const userInputProfession = document.querySelector(
-  ".form__input_type_title"
-); //
+
 export const newItemFormSelector = ".form_type_new-gallery-item";
 export const profileFormSelector = ".form_type_profile";
 export const avatarFormSelector = ".form_type_change-avatar";
@@ -32,6 +29,7 @@ export const loadingPopup = document.querySelector(".popup_type_loading");
 
 //configs
 export const formValidationConfig = {
+  formSelector: ".form",
   inputSelector: ".form__input",
   errorClass: "form__input-error_active",
   inactiveButtonClass: "form__submit-button-inactive",

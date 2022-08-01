@@ -27,7 +27,7 @@ Promise.all([api.getUserInfo(), api.getInitCard()])
   })
   .catch((error) => {
     renderDefaultPage();
-    alert(error);
+    console.log(error);
   })
   .finally(() => {
     disableLoading();
@@ -38,16 +38,11 @@ const renderDefaultPage = () => {
   userInfo.setUserAvatar("../images/profile_avatar.png");
 };
 
-const fillProfileInfo = (info) => {
-  constant.userInputName.value = info.userName;
-  constant.userInputProfession.value = info.userJob;
-};
-
 const handleProfileEditWindow = () => {
-  const info = userInfo.getUserInfo();
-  fillProfileInfo(info);
+  popupWithFormProfile.setInputValues(userInfo.getUserInfo());
 
-  profileFormValidator.resetValidation();
+  formValidators["profileEditForm"].resetValidation();
+
   popupWithFormProfile.open();
 };
 
@@ -70,93 +65,93 @@ function handleLikeButtonClick(card) {
 }
 
 const handleNewItemWindow = () => {
-  newCardFormValidator.resetValidation();
+  formValidators["newGalleryItemForm"].resetValidation();
   popupWithFormImage.open();
 };
 
 const handleProfileFormSubmit = (event) => {
+  popupWithFormProfile.disableSbmitBtn(true);
   event.preventDefault();
   const userInput = popupWithFormProfile.getInputValues();
 
-  const submitButtonProfile = document.querySelector(
-    ".form__submit-button_profile"
-  );
-
-  submitButtonProfile.textContent = "Saving...";
-
+  popupWithFormProfile.renderLoading(true);
   api
     .editProfile(userInput.name, userInput.about)
     .then((res) => {
       userInfo.setUserInfo(res.name, res.about);
+      popupWithFormProfile.close();
     })
     .catch((error) => {
       console.log(error);
     })
     .finally(() => {
-      submitButtonProfile.textContent = "Save";
-      popupWithFormProfile.close();
+      popupWithFormProfile.renderLoading(false);
+      popupWithFormProfile.disableSbmitBtn(false);
     });
 };
 
 const handleChangeAvatarSubmit = (event) => {
+  popupWithAvatarForm.disableSbmitBtn(true);
+
   event.preventDefault();
   const userInput = popupWithAvatarForm.getInputValues();
-  const submitButtonAvatar = document.querySelector(
-    ".form__submit-button_change-avatar"
-  );
 
-  submitButtonAvatar.textContent = "Saving...";
+  popupWithAvatarForm.renderLoading(true);
+
   api
     .editAvatar(userInput.avatar)
     .then((res) => {
       userInfo.setUserAvatar(res.avatar);
-    })
-    .catch((error) => new Error(error))
-    .finally(() => {
       popupWithAvatarForm.close();
-      submitButtonAvatar.textContent = "Change";
+    })
+    .catch(console.log)
+    .finally(() => {
+      popupWithAvatarForm.renderLoading(false);
+      popupWithAvatarForm.disableSbmitBtn(false);
     });
 };
 
 const handleNewItemSubmit = (event) => {
+  popupWithFormImage.disableSbmitBtn(true);
+
   event.preventDefault();
   const userInput = popupWithFormImage.getInputValues();
-  const newItemSubmitButton = document.querySelector(
-    ".form__submit-button_new-gallery-item"
-  );
 
-  newItemSubmitButton.textContent = "Saving...";
+  popupWithFormImage.renderLoading(true);
 
   api
     .addCard(userInput.newItemTitle, userInput.newItemImageLink)
     .then((res) => {
       cardRenderer.addItem(res);
+      popupWithFormImage.close();
     })
     .catch(console.log)
     .finally(() => {
-      popupWithFormImage.close();
-      newItemSubmitButton.textContent = "Create";
+      popupWithFormImage.renderLoading(false);
+      popupWithFormImage.disableSbmitBtn(false);
     });
 };
 
 const handleDeleteButtonClick = (card) => {
   popupDeleteConfirmation.changeSubmitHandler((event) => {
+    popupDeleteConfirmation.disableSbmitBtn(true);
     event.preventDefault();
     api
       .deleteCard(card.getCardId())
       .then(() => {
         card.removeCard();
+        popupDeleteConfirmation.close();
       })
       .catch(console.log)
       .finally(() => {
-        popupDeleteConfirmation.close();
+        popupDeleteConfirmation.disableSbmitBtn(false);
       });
   });
   popupDeleteConfirmation.open();
 };
 
 const handleProfileAvatrWindow = () => {
-  pofileAvatarFormValidation.resetValidation();
+  formValidators["changeAvatarForm"].resetValidation();
   popupWithAvatarForm.open();
 };
 
@@ -188,19 +183,20 @@ const renderCard = (cardItem) => {
 //
 //                                  New instances
 //
-//create form validatian instances to check form input fields
-const profileFormValidator = new FormValidator(
-  constant.profileFormSelector,
-  constant.formValidationConfig
-);
-const newCardFormValidator = new FormValidator(
-  constant.newItemFormSelector,
-  constant.formValidationConfig
-);
-const pofileAvatarFormValidation = new FormValidator(
-  constant.avatarFormSelector,
-  constant.formValidationConfig
-);
+
+const formValidators = {};
+
+const enableValidation = (config) => {
+  const formList = [...document.querySelectorAll(config.formSelector)];
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(formElement, config);
+    const formName = formElement.getAttribute("name");
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(constant.formValidationConfig);
 
 //create instance of card renderer to add card to the page
 const cardRenderer = new Section(
@@ -238,11 +234,3 @@ constant.addGalleryItemButton.addEventListener("click", handleNewItemWindow);
 document
   .querySelector(constant.profileAvatarSelector)
   .addEventListener("click", handleProfileAvatrWindow);
-
-//
-//
-//                        Enable vlidation to forms
-//
-profileFormValidator.enableValidation();
-newCardFormValidator.enableValidation();
-pofileAvatarFormValidation.enableValidation();
