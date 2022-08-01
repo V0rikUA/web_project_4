@@ -29,28 +29,19 @@ export class Card {
   }
   setLikes(likes) {
     this._likes = likes;
-    const likesCounterElement = this._cardElement.querySelector(
-      "#template__like-counter"
-    );
-    likesCounterElement.textContent = this._likes.length;
+    this._likesCounterElement.textContent = this._likes.length;
   }
 
   setEventListeners(callbacks) {
     this._likeButton.addEventListener("click", () => {
-      callbacks
-        .handleLikeButtonClick
-        // this.setLikes,
-        // this.toggleLikeButton,
-        // this._cardId,
-        // this.isLiked
-        ();
+      callbacks.handleLikeButtonClick();
     });
     this._cardImageElement.addEventListener("click", () => {
       callbacks.handleCardImageClick();
     });
     if (this.isOwner()) {
       this._deleteCardButton.addEventListener("click", () => {
-        callbacks.handleDeleteButtonClick(this /*this.removeCard*/);
+        callbacks.handleDeleteButtonClick(this);
       });
     }
   }
@@ -107,6 +98,9 @@ export class Card {
     );
     this._deleteCardButton = this._cardElement.querySelector(
       "#template__delete-button"
+    );
+    this._likesCounterElement = this._cardElement.querySelector(
+      "#template__like-counter"
     );
   }
 

@@ -4,13 +4,12 @@ export default class Popup {
    * @param {string} popupSelector selector to manipulate modal window
    *
    */
-  constructor(popupSelector, validationSwitch) {
+  constructor(popupSelector) {
     this._popupElement = document.querySelector(popupSelector);
     this._popupCloseButton = this._popupElement.querySelector(
       ".popup__close-button"
     );
     this._popupActiveToggleSelector = "popup_active";
-    this._validationSwitch = validationSwitch;
 
     this._handleEscClose = this._handleEscClose.bind(this);
     this._handleBackgroundClickClose =
