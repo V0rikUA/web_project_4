@@ -2,14 +2,19 @@ export default class Popup {
   /**
    *
    * @param {string} popupSelector selector to manipulate modal window
+   *
    */
-  constructor(popupSelector) {
+  constructor(popupSelector, validationSwitch) {
     this._popupElement = document.querySelector(popupSelector);
-    this._popupCloseButton = this._popupElement.querySelector(".popup__close-button");
+    this._popupCloseButton = this._popupElement.querySelector(
+      ".popup__close-button"
+    );
     this._popupActiveToggleSelector = "popup_active";
+    this._validationSwitch = validationSwitch;
 
     this._handleEscClose = this._handleEscClose.bind(this);
-    this._handleBackgroundClickClose = this._handleBackgroundClickClose.bind(this);
+    this._handleBackgroundClickClose =
+      this._handleBackgroundClickClose.bind(this);
     this.close = this.close.bind(this);
   }
 
@@ -25,8 +30,8 @@ export default class Popup {
    * remove "popup_active" class and all event listeners
    */
   close() {
-    this._popupElement.classList.remove(this._popupActiveToggleSelector);
     this.removeEventListeners();
+    this._popupElement.classList.remove(this._popupActiveToggleSelector);
   }
 
   /**
@@ -54,7 +59,10 @@ export default class Popup {
   setEventListeners() {
     this._popupCloseButton.addEventListener("click", this.close);
     document.addEventListener("keydown", this._handleEscClose);
-    this._popupElement.addEventListener("mousedown", this._handleBackgroundClickClose);
+    this._popupElement.addEventListener(
+      "mousedown",
+      this._handleBackgroundClickClose
+    );
   }
 
   /**
@@ -63,6 +71,9 @@ export default class Popup {
   removeEventListeners() {
     this._popupCloseButton.removeEventListener("click", this.close);
     document.removeEventListener("keydown", this._handleEscClose);
-    this._popupElement.removeEventListener("mousedown", this._handleBackgroundClickClose);
+    this._popupElement.removeEventListener(
+      "mousedown",
+      this._handleBackgroundClickClose
+    );
   }
 }

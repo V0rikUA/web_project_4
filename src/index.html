@@ -124,19 +124,21 @@
 
     <div class="popup popup_type_delete-card">
       <div class="popup__window popup__window_delete-card">
-        <button
-          type="button"
-          class="button popup__close-button"
-          aria-label="close"
-        ></button>
-        <h2 class="popup__title">Are you sure</h2>
-        <button
-          type="button"
-          class="button popup__delete-card-button"
-          aria-label="button"
-        >
-          Yes
-        </button>
+        <h2 class="popup__title">Are you sure?</h2>
+        <form class="form">
+          <button
+            type="button"
+            class="button popup__close-button"
+            aria-label="close"
+          ></button>
+          <button
+            type="submit"
+            class="button popup__delete-card-button"
+            aria-label="button"
+          >
+            Yes
+          </button>
+        </form>
       </div>
     </div>
 
@@ -213,27 +215,37 @@
     </footer>
 
     <template id="gallary-list__item__template">
-      <li class="gallery-list__item">
+      <li class="gallery-list__item" id="template__card">
         <button
           type="button"
           class="button gallery-list__delete-button"
           aria-label="delete-button"
+          id="template__delete-button"
         >
           <img
             src="<%=require(`./images/Trash.svg`)%>"
             alt="an image of trash bin"
           />
         </button>
-        <img src=" " alt=" " class="gallery-list__image" />
+        <img src=" " alt=" " class="gallery-list__image" id="template__image" />
         <div class="gallery-list__description-block">
-          <h2 class="gallery-list__image-description"></h2>
+          <h2
+            class="gallery-list__image-description"
+            id="template__image-description"
+          ></h2>
           <div class="gallery-list__like-container">
             <button
               type="button"
               class="button gallery-list__like-container_button"
+              id="template__like-button"
               arial-label="like-button"
             ></button>
-            <label class="gallery-list__like-container_counter">0</label>
+            <span
+              class="gallery-list__like-container_counter"
+              id="template__like-counter"
+            >
+              0
+            </span>
           </div>
         </div>
       </li>
