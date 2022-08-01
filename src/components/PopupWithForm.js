@@ -10,6 +10,9 @@ export default class PopupWithForm extends Popup {
     super(popupSelector);
     this._handleFormSubmit = handleFormSubmit;
     this._form = this._popupElement.querySelector(".form");
+    this._submitBtn = this._form.querySelector('button[type="submit"]');
+    this._submitBtnText = this._submitBtn.textContent;
+    this._inputList = this._popupElement.querySelectorAll("input");
   }
   /**
    *collects data from all the input fields and
@@ -17,14 +20,28 @@ export default class PopupWithForm extends Popup {
    *
    */
   getInputValues() {
-    return Array.from(this._popupElement.querySelectorAll("input")).reduce(
+    return Array.from(this._inputList).reduce(
       (acc, input) => ({ ...acc, [input.name]: input.value }),
       {}
     );
   }
 
+  renderLoading(isLoading, loadingText = "Saving...") {
+    this._submitBtn.textContent = isLoading ? loadingText : this._submitBtnText;
+  }
+
+  setInputValues(data) {
+    this._inputList.forEach((input) => {
+      input.value = data[input.name];
+    });
+  }
+
   changeSubmitHandler(newHandler) {
     this._handleFormSubmit = newHandler;
+  }
+
+  disableSbmitBtn(isDisabled) {
+    this._submitBtn.disabled = isDisabled;
   }
 
   setEventListeners() {
